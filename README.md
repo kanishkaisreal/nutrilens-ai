@@ -12,7 +12,13 @@ Nutrition information from an image is inherently uncertain. This project explor
 
 ## Demo
 
-The Gradio app accepts a meal image and displays a validated demo-mode response with estimated ingredients, nutrition, uncertainty notes, and safety-reviewed guidance. The response is deterministic for now; a live multimodal pipeline is planned next.
+The Gradio app accepts a meal image and displays a validated demo-mode response with estimated ingredients, nutrition, uncertainty notes, and safety-reviewed guidance. The current public version runs in demo mode and returns a sample structured meal analysis. Live model mode is planned next.
+
+Run the local Gradio demo:
+
+```bash
+python app.py
+```
 
 ## Planned architecture
 
