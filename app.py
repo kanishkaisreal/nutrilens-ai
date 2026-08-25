@@ -9,6 +9,7 @@ import gradio as gr
 from PIL import Image
 
 from src.agents.pipeline import analyze_meal_image
+from src.runtime.config import load_config
 
 
 NUTRITION_LABELS = {
@@ -150,7 +151,7 @@ INITIAL_RESULT_CARD = """
     <strong>What you will see</strong>
     A clear nutrition estimate, carb-focused context, and one practical portion idea.
   </div>
-  <p class="estimate-note">Demo results are approximate and are not medical advice.</p>
+  <p class="estimate-note">Results are approximate and are not medical advice.</p>
 </article>
 """
 
@@ -173,6 +174,30 @@ def find_sample_images(directory: Path = SAMPLE_IMAGE_DIRECTORY) -> list[str]:
         for path in sorted(directory.iterdir())
         if path.is_file() and path.suffix.lower() in SUPPORTED_IMAGE_EXTENSIONS
     ]
+
+
+def runtime_mode_note() -> str:
+    """Return a non-technical description of the configured analysis mode."""
+    config = load_config()
+    if config.demo_mode:
+        heading = "Demo mode is active."
+        detail = (
+            "The interface uses a sample structured meal analysis and does not "
+            "make an API request."
+        )
+    elif not config.openai_api_key:
+        heading = "Live mode needs configuration."
+        detail = "Add an API key or switch back to demo mode before analyzing a meal."
+    else:
+        heading = "Live analysis is active."
+        detail = "Your photo will be checked, analyzed, and safety-reviewed."
+
+    return (
+        '<div class="demo-note">'
+        f"<strong>{heading}</strong><br>"
+        f"{detail}"
+        "</div>"
+    )
 
 
 def recommendation_badge(label: str | None) -> str:
@@ -425,15 +450,7 @@ with gr.Blocks(title="NutriLens AI") as demo:
                     inputs=[meal_image],
                     label="Or try a sample meal",
                 )
-            gr.HTML(
-                """
-                <div class="demo-note">
-                  <strong>Demo mode is currently active.</strong><br>
-                  The interface shows a sample structured meal analysis so the app
-                  can be tried without an API key.
-                </div>
-                """
-            )
+            gr.HTML(runtime_mode_note())
 
         with gr.Column(scale=3, min_width=320):
             consumer_summary = gr.HTML(INITIAL_RESULT_CARD)

@@ -16,7 +16,7 @@ Nutrition information from an image is inherently uncertain. This project explor
 
 ## Try it quickly
 
-The Gradio app accepts a meal image and displays a validated demo-mode response with estimated ingredients, nutrition, uncertainty notes, and safety-reviewed guidance. The current public version runs in demo mode and returns a sample structured meal analysis. Live model mode is planned next.
+The Gradio app accepts a meal image and displays a validated response with estimated ingredients, nutrition, uncertainty notes, and safety-reviewed guidance. It runs in deterministic demo mode by default, with an optional live model pipeline for local use.
 
 Run the local Gradio demo:
 
@@ -26,11 +26,22 @@ python app.py
 
 Demo mode works without an API key. You can upload your own meal photo or click one of the public demo images in [`examples/sample_images/`](examples/sample_images/).
 
-Live Hugging Face Space coming soon.
+## Demo mode vs live mode
 
-## Planned architecture
+Demo mode is the default. It works without an API key, makes no model requests, and returns the included sample structured response.
 
-The planned system separates image intake, meal analysis, structured output validation, and safety review into focused components. Runtime orchestration will connect those components while keeping configuration and evaluation utilities isolated.
+Live mode requires an `OPENAI_API_KEY` and runs three model-backed steps: image guardrail, meal analysis, and output safety review. To enable it:
+
+1. Copy `.env.example` to `.env`.
+2. Set `DEMO_MODE=false`.
+3. Set `OPENAI_API_KEY` to your key.
+4. Run `python app.py`.
+
+Keep `.env` local and never commit it. Model names can be changed independently with the model environment variables shown in `.env.example`.
+
+## Architecture
+
+The system separates image intake, input guardrails, meal analysis, structured Pydantic validation, and output safety review into focused components. Runtime orchestration connects those components while keeping configuration and evaluation utilities isolated.
 
 ## Quickstart
 
@@ -46,11 +57,11 @@ You can also start the demo with `gradio app.py` after installing the dependenci
 
 ## Environment variables
 
-- `DEMO_MODE`: Keep set to `true` to run the scaffold without an API key.
-- `OPENAI_API_KEY`: Optional for now; reserved for a future connected analysis pipeline.
-- `OPENAI_GUARDRAIL_MODEL`: Model used for the planned input guardrail.
-- `OPENAI_MEAL_MODEL`: Model used for the planned meal analysis.
-- `OPENAI_SAFETY_MODEL`: Model used for the planned output safety review.
+- `DEMO_MODE`: Defaults to `true`; set to `false` to request live analysis.
+- `OPENAI_API_KEY`: Required only when live mode is enabled.
+- `OPENAI_GUARDRAIL_MODEL`: Model used for the input guardrail.
+- `OPENAI_MEAL_MODEL`: Model used for meal analysis.
+- `OPENAI_SAFETY_MODEL`: Model used for output safety review.
 
 Copy `.env.example` to `.env` for local configuration. Never commit API keys or other secrets.
 
@@ -60,7 +71,7 @@ Copy `.env.example` to `.env` for local configuration. Never commit API keys or 
 .
 ├── app.py                  # Runnable Gradio demo
 ├── src/
-│   ├── agents/             # Response schemas and demo pipeline
+│   ├── agents/             # Prompts, response schemas, and agent pipeline
 │   ├── runtime/            # Response construction helpers
 │   ├── utils/              # Shared utilities
 │   └── evals/              # Public evaluation utilities
@@ -71,12 +82,10 @@ Copy `.env.example` to `.env` for local configuration. Never commit API keys or 
 
 ## Safety note
 
-Nutrition estimates are approximate and are not medical advice. Future outputs will communicate uncertainty and use a dedicated safety-review step, but they should not replace guidance from a qualified healthcare professional.
+Nutrition estimates are approximate and are not medical advice. Outputs communicate uncertainty and pass through a dedicated safety-review step, but they should not replace guidance from a qualified healthcare professional.
 
 ## Roadmap
 
-- Add the multimodal analysis pipeline.
-- Add input guardrails and output safety review.
 - Publish openly licensed sample images and example outputs.
 - Add evaluation coverage and deploy the Gradio demo.
 
