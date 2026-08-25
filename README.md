@@ -137,6 +137,11 @@ The repository includes an early, deterministic ingredient-role and meal-compose
 python scripts/demo_meal_composer.py
 ```
 
+The Gradio app exposes both workflows:
+
+- **Photo Analyzer:** upload a meal image for the existing analysis experience.
+- **Meal Composer:** enter available ingredients for a rule-based, carb-aware meal idea.
+
 See the [personalization implementation plan](docs/personalization_implementation_plan.md) for its current limits and staged development path.
 
 ## License

@@ -9,6 +9,12 @@ import gradio as gr
 from PIL import Image
 
 from src.agents.pipeline import analyze_meal_image
+from src.personalization.meal_composer import compose_meal
+from src.personalization.schemas import (
+    AvailableIngredient,
+    MealComposerRequest,
+    MealComposerSuggestion,
+)
 from src.runtime.config import load_config
 
 
@@ -218,7 +224,7 @@ body {
 #meal-image .wrap, #meal-image .image-container {
   background: transparent !important;
 }
-#analyze-button {
+#analyze-button, #composer-button {
   min-height: 52px !important;
   margin-top: 5px;
   border: 0 !important;
@@ -230,12 +236,36 @@ body {
   font-weight: 760 !important;
   transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
 }
-#analyze-button:hover {
+#analyze-button:hover, #composer-button:hover {
   transform: translateY(-1px);
   filter: brightness(1.06);
   box-shadow: 0 14px 34px rgba(48, 209, 88, 0.28) !important;
 }
-#analyze-button:active { transform: translateY(0) scale(0.99); }
+#analyze-button:active, #composer-button:active { transform: translateY(0) scale(0.99); }
+.app-tabs { margin-top: -18px; }
+#app-tabs .tab-wrapper { border-bottom: 0 !important; }
+#app-tabs .tab-container[role="tablist"] {
+  gap: 7px;
+  width: fit-content;
+  margin-bottom: 8px;
+  padding: 6px;
+  border: 1px solid var(--ck-border-soft);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.035);
+}
+#app-tabs button[role="tab"] {
+  padding: 9px 14px !important;
+  border: 0 !important;
+  border-radius: 11px !important;
+  color: var(--ck-muted) !important;
+  font-weight: 700 !important;
+}
+#app-tabs button[role="tab"]::after { display: none !important; }
+#app-tabs button[role="tab"][aria-selected="true"] {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: var(--ck-text) !important;
+}
+#app-tabs .mode-banner { margin: 24px auto 30px; }
 .mode-banner {
   display: flex;
   align-items: center;
@@ -286,6 +316,114 @@ body {
   line-height: 1.48;
 }
 .upload-mode-note strong { color: var(--ck-text); }
+.composer-intro {
+  max-width: 760px;
+  margin: 25px auto 18px;
+  text-align: center;
+}
+.composer-intro .mode-pill { display: inline-flex; margin-bottom: 10px; }
+.composer-intro h2 {
+  margin: 0;
+  color: var(--ck-text);
+  font-size: clamp(1.55rem, 4vw, 2.25rem);
+  letter-spacing: -0.04em;
+}
+.composer-intro p {
+  max-width: 620px;
+  margin: 10px auto 0;
+  color: var(--ck-muted);
+  line-height: 1.55;
+}
+.composer-grid { gap: 18px !important; align-items: stretch !important; }
+.composer-input-card {
+  padding: clamp(18px, 3vw, 26px) !important;
+  border: 1px solid var(--ck-border) !important;
+  border-radius: 30px !important;
+  background: var(--ck-surface) !important;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.3) !important;
+}
+#app-tabs .composer-input-card > .form,
+#app-tabs .composer-input-card .block,
+#app-tabs .composer-input-card .gradio-textbox {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+#app-tabs .composer-input-card label.container {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+#app-tabs .composer-input-card [data-testid="block-info"] {
+  background: transparent !important;
+  color: #d1d1d6 !important;
+}
+.composer-input-card textarea,
+.composer-input-card input {
+  border: 1px solid var(--ck-border-soft) !important;
+  border-radius: 12px !important;
+  background: #0a0a0b !important;
+  color: var(--ck-text) !important;
+}
+#composer-button {
+  min-height: 52px !important;
+  margin-top: 6px;
+  border: 0 !important;
+  border-radius: 16px !important;
+  background: linear-gradient(180deg, #3adb64 0%, var(--ck-green) 100%) !important;
+  box-shadow: 0 10px 28px rgba(48, 209, 88, 0.2) !important;
+  color: #031006 !important;
+  font-size: 1rem !important;
+  font-weight: 760 !important;
+  transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+}
+.composer-result-card { min-height: 100%; }
+.composer-result-card h2 { margin-top: 12px; }
+.composer-kicker {
+  color: var(--ck-green);
+  font-size: 0.74rem;
+  font-weight: 740;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.ingredient-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 18px 0 20px;
+  padding: 0;
+  list-style: none;
+}
+.ingredient-chip {
+  padding: 7px 10px;
+  border: 1px solid var(--ck-border-soft);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #d1d1d6;
+  font-size: 0.8rem;
+}
+.substitution-list {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.substitution-item {
+  padding: 11px 13px;
+  border: 1px solid var(--ck-border-soft);
+  border-radius: 13px;
+  background: rgba(255, 255, 255, 0.035);
+  color: #c7c7cc;
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+.substitution-item strong { color: var(--ck-text); }
+.composer-empty {
+  color: var(--ck-muted);
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
 .result-card {
   min-height: 100%;
   padding: clamp(24px, 4.5vw, 40px);
@@ -502,18 +640,18 @@ body {
   .gradio-container > * { max-width: 100% !important; }
   #hero { width: 100%; max-width: 100%; padding-top: 44px; }
   #hero .hero-subtitle, #hero .hero-description { overflow-wrap: anywhere; }
-  .app-grid, .details-grid {
+  .app-grid, .details-grid, .composer-grid {
     display: grid !important;
     grid-template-columns: minmax(0, 1fr) !important;
     width: 100% !important;
     max-width: 100% !important;
   }
-  .app-grid > *, .details-grid > * {
+  .app-grid > *, .details-grid > *, .composer-grid > * {
     min-width: 0 !important;
     width: 100% !important;
     max-width: 100% !important;
   }
-  .upload-card, .result-card {
+  .upload-card, .result-card, .composer-input-card {
     width: 100% !important;
     max-width: 100% !important;
     min-width: 0 !important;
@@ -546,6 +684,20 @@ INITIAL_RESULT_CARD = """
     A clear nutrition estimate, carb-focused context, and one practical portion idea.
   </div>
   <p class="estimate-note">Results are approximate and are not medical advice.</p>
+</article>
+"""
+
+COMPOSER_EXAMPLE = "pasta, greek yogurt, garlic, spinach, vinegar, chicken"
+
+INITIAL_COMPOSER_CARD = """
+<article class="result-card composer-result-card state-card">
+  <span class="rating-pill rating-unknown">Rule-based prototype</span>
+  <h2>Build a meal from what you have</h2>
+  <p class="description">
+    Add available ingredients to see an interpretable meal idea with carb-aware
+    context and functional substitutions when relevant.
+  </p>
+  <p class="estimate-note">Approximate food suggestion only. Not medical advice.</p>
 </article>
 """
 
@@ -928,6 +1080,96 @@ def run_ui_analysis(image: Image.Image | None) -> UIOutput:
     return _format_ui_output(result)
 
 
+def parse_ingredient_text(text: str) -> list[str]:
+    """Split comma- or newline-separated ingredient text into clean names."""
+    return [
+        ingredient.strip()
+        for line in str(text or "").splitlines()
+        for ingredient in line.split(",")
+        if ingredient.strip()
+    ]
+
+
+def render_meal_composer_html(suggestion: MealComposerSuggestion) -> str:
+    """Render an escaped, consumer-friendly meal-composer result card."""
+    title = escape(str(suggestion.title))
+    carb_watch = escape(str(suggestion.carb_watch))
+    preparation_idea = escape(str(suggestion.preparation_idea))
+    safety_note = escape(str(suggestion.safety_note))
+    ingredients_html = "".join(
+        f'<li class="ingredient-chip">{escape(str(ingredient))}</li>'
+        for ingredient in suggestion.selected_ingredients
+    )
+    substitutions_html = "".join(
+        (
+            '<li class="substitution-item">'
+            f"<strong>{escape(str(substitution.replace))} → "
+            f"{escape(str(substitution.with_ingredient))}</strong><br>"
+            f"{escape(str(substitution.reason))}"
+            "</li>"
+        )
+        for substitution in suggestion.substitutions
+    )
+    if not substitutions_html:
+        substitutions_html = (
+            '<li class="composer-empty">'
+            "No functional substitutions are needed for this ingredient set."
+            "</li>"
+        )
+
+    return f"""
+<article class="result-card composer-result-card">
+  <span class="composer-kicker">Rule-based meal idea</span>
+  <h2>{title}</h2>
+  <ul class="ingredient-chips" aria-label="Selected ingredients">{ingredients_html}</ul>
+  <div class="insight-box">
+    <strong>Carb watch</strong>
+    {carb_watch}
+  </div>
+  <div class="insight-box suggestion">
+    <strong>Preparation idea</strong>
+    {preparation_idea}
+  </div>
+  <div class="insight-box">
+    <strong>Functional substitutions</strong>
+    <ul class="substitution-list">{substitutions_html}</ul>
+  </div>
+  <p class="estimate-note">{safety_note}</p>
+</article>
+"""
+
+
+def run_meal_composer(
+    ingredients_text: str,
+    goal: str,
+    cuisine_hint: str,
+) -> str:
+    """Compose a deterministic meal idea without a model call or persistence."""
+    ingredient_names = parse_ingredient_text(ingredients_text)
+    if not ingredient_names:
+        return """
+<article class="result-card composer-result-card state-card">
+  <span class="rating-pill rating-orange">Ingredients needed</span>
+  <h2>What ingredients do you have?</h2>
+  <p class="description">
+    Enter at least one ingredient, separated by commas or new lines, then select
+    Compose Meal.
+  </p>
+  <p class="estimate-note">Approximate food suggestion only. Not medical advice.</p>
+</article>
+"""
+
+    request = MealComposerRequest(
+        available_ingredients=[
+            AvailableIngredient(name=ingredient) for ingredient in ingredient_names
+        ],
+        goal=str(goal or "carb-aware balanced meal").strip()
+        or "carb-aware balanced meal",
+        cuisine_hint=str(cuisine_hint or "").strip() or None,
+    )
+    return render_meal_composer_html(compose_meal(request))
+
+
 with gr.Blocks(title="CarbKind AI") as demo:
     gr.HTML(
         """
@@ -943,63 +1185,133 @@ with gr.Blocks(title="CarbKind AI") as demo:
         </section>
         """
     )
-    gr.HTML(runtime_mode_banner())
+    with gr.Tabs(elem_id="app-tabs", elem_classes=["app-tabs"]):
+        with gr.Tab("Photo Analyzer"):
+            gr.HTML(runtime_mode_banner())
 
-    with gr.Row(equal_height=False, elem_classes=["app-grid"]):
-        with gr.Column(scale=2, min_width=290, elem_classes=["upload-card"]):
+            with gr.Row(equal_height=False, elem_classes=["app-grid"]):
+                with gr.Column(
+                    scale=2, min_width=290, elem_classes=["upload-card"]
+                ):
+                    gr.HTML(
+                        '<div class="panel-heading"><span>Step one</span>'
+                        "<h2>Add your meal photo</h2></div>"
+                    )
+                    meal_image = gr.Image(
+                        type="pil",
+                        label="Meal photo",
+                        height=330,
+                        elem_id="meal-image",
+                    )
+                    analyze_button = gr.Button(
+                        "Analyze Meal",
+                        variant="primary",
+                        elem_id="analyze-button",
+                    )
+                    sample_images = find_sample_images()
+                    if sample_images:
+                        gr.Examples(
+                            examples=[
+                                [sample_image] for sample_image in sample_images
+                            ],
+                            inputs=[meal_image],
+                            label="Or try a sample meal",
+                        )
+                    gr.HTML(runtime_upload_note())
+
+                with gr.Column(scale=3, min_width=320):
+                    consumer_summary = gr.HTML(INITIAL_RESULT_CARD)
+                    support_note = gr.HTML(
+                        '<div class="support-note">'
+                        "Add a photo to see an approximate result."
+                        "</div>"
+                    )
+
             gr.HTML(
-                '<div class="panel-heading"><span>Step one</span>'
-                "<h2>Add your meal photo</h2></div>"
+                '<div class="section-heading"><span>Explore the estimate</span>'
+                "<h2>Meal details</h2></div>"
             )
-            meal_image = gr.Image(
-                type="pil", label="Meal photo", height=330, elem_id="meal-image"
+            with gr.Row(equal_height=False, elem_classes=["details-grid"]):
+                with gr.Column(scale=2):
+                    nutrition_table = gr.HTML(render_nutrition_html([]))
+                with gr.Column(scale=3):
+                    ingredient_table = gr.HTML(render_ingredients_html([]))
+
+            with gr.Accordion(
+                "Advanced: structured response",
+                open=False,
+                elem_classes=["advanced-panel"],
+            ):
+                raw_json = gr.JSON(label="Raw JSON")
+
+            analyze_button.click(
+                fn=run_ui_analysis,
+                inputs=meal_image,
+                outputs=[
+                    consumer_summary,
+                    nutrition_table,
+                    ingredient_table,
+                    support_note,
+                    raw_json,
+                ],
             )
-            analyze_button = gr.Button(
-                "Analyze Meal", variant="primary", elem_id="analyze-button"
+
+        with gr.Tab("Meal Composer"):
+            gr.HTML(
+                '<section class="composer-intro">'
+                '<span class="mode-pill mode-live">No API calls</span>'
+                "<h2>Make a meal from what you have</h2>"
+                "<p>Enter ingredients from your kitchen for a transparent, "
+                "rule-based meal idea. Ingredients are used only for this response "
+                "and are not stored.</p>"
+                "</section>"
             )
-            sample_images = find_sample_images()
-            if sample_images:
-                gr.Examples(
-                    examples=[[sample_image] for sample_image in sample_images],
-                    inputs=[meal_image],
-                    label="Or try a sample meal",
-                )
-            gr.HTML(runtime_upload_note())
+            with gr.Row(equal_height=False, elem_classes=["composer-grid"]):
+                with gr.Column(
+                    scale=2,
+                    min_width=290,
+                    elem_classes=["composer-input-card"],
+                ):
+                    gr.HTML(
+                        '<div class="panel-heading"><span>Meal composer</span>'
+                        "<h2>What ingredients do you have?</h2></div>"
+                    )
+                    composer_ingredients = gr.Textbox(
+                        value=COMPOSER_EXAMPLE,
+                        label="Available ingredients",
+                        placeholder=COMPOSER_EXAMPLE,
+                        lines=5,
+                    )
+                    composer_goal = gr.Textbox(
+                        value="carb-aware balanced meal",
+                        label="Goal",
+                    )
+                    composer_cuisine = gr.Textbox(
+                        label="Cuisine hint (optional)",
+                        placeholder=(
+                            "Indian, Mediterranean, Mexican, no preference"
+                        ),
+                    )
+                    compose_button = gr.Button(
+                        "Compose Meal",
+                        variant="primary",
+                        elem_id="composer-button",
+                    )
+                    gr.HTML(
+                        '<div class="upload-mode-note">'
+                        "<strong>Private by design:</strong> This prototype makes "
+                        "no model calls and does not save your ingredients."
+                        "</div>"
+                    )
 
-        with gr.Column(scale=3, min_width=320):
-            consumer_summary = gr.HTML(INITIAL_RESULT_CARD)
-            support_note = gr.HTML(
-                '<div class="support-note">Add a photo to see an approximate result.</div>'
+                with gr.Column(scale=3, min_width=320):
+                    composer_result = gr.HTML(INITIAL_COMPOSER_CARD)
+
+            compose_button.click(
+                fn=run_meal_composer,
+                inputs=[composer_ingredients, composer_goal, composer_cuisine],
+                outputs=composer_result,
             )
-
-    gr.HTML(
-        '<div class="section-heading"><span>Explore the estimate</span>'
-        "<h2>Meal details</h2></div>"
-    )
-    with gr.Row(equal_height=False, elem_classes=["details-grid"]):
-        with gr.Column(scale=2):
-            nutrition_table = gr.HTML(render_nutrition_html([]))
-        with gr.Column(scale=3):
-            ingredient_table = gr.HTML(render_ingredients_html([]))
-
-    with gr.Accordion(
-        "Advanced: structured response",
-        open=False,
-        elem_classes=["advanced-panel"],
-    ):
-        raw_json = gr.JSON(label="Raw JSON")
-
-    analyze_button.click(
-        fn=run_ui_analysis,
-        inputs=meal_image,
-        outputs=[
-            consumer_summary,
-            nutrition_table,
-            ingredient_table,
-            support_note,
-            raw_json,
-        ],
-    )
 
 
 if __name__ == "__main__":
