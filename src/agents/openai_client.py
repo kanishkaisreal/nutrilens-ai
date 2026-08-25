@@ -62,7 +62,6 @@ def call_vision_json_model(
     image_path: str,
     prompt: str,
     model: str,
-    temperature: float = 0.0,
 ) -> dict[str, Any]:
     """Call a vision-capable model and return its parsed JSON object."""
     client = OpenAI()
@@ -81,7 +80,6 @@ def call_vision_json_model(
                 ],
             }
         ],
-        temperature=temperature,
         store=False,
     )
     return _parse_json_object(extract_output_text(response))
