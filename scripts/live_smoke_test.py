@@ -38,7 +38,6 @@ def _print_safe_summary(result: dict[str, Any]) -> None:
     safety = result.get("safety") or {}
 
     print(f"status: {result.get('status')}")
-    print(f"message: {result.get('message')}")
     print(f"metadata.demo_mode: {metadata.get('demo_mode')}")
     if meal:
         print(f"meal.title: {meal.get('title')}")
@@ -54,6 +53,7 @@ def _print_safe_summary(result: dict[str, Any]) -> None:
 def main() -> int:
     load_dotenv(PROJECT_ROOT / ".env")
     os.environ["DEMO_MODE"] = "false"
+    os.environ["MODEL_PROVIDER"] = "openai"
 
     if not os.getenv("OPENAI_API_KEY", "").strip():
         print("OPENAI_API_KEY is missing; live smoke test was not run.")
