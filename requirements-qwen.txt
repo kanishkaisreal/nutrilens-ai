@@ -1,0 +1,6 @@
+# Optional dependencies for local Qwen vision-language experiments.
+# Install the correct PyTorch build for your hardware separately before inference.
+transformers
+accelerate
+pillow
+qwen-vl-utils

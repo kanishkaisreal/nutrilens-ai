@@ -56,8 +56,9 @@ Current providers:
 
 - `demo`: loads a fixed sample response and requires no API key.
 - `openai`: runs the live multimodal guardrail, meal-analysis, and safety-review flow and requires `OPENAI_API_KEY`.
+- `qwen`: optional experimental scaffold for local Qwen VLM work; disabled by default and never downloads weights automatically.
 
-Planned providers include a Qwen or other open-source VLM experiment and a local or lightweight model option. These planned providers are not implemented yet.
+See the [Qwen provider guide](docs/qwen_provider.md) for the opt-in setup and current limits. Other local or lightweight providers remain future experiments.
 
 ## Evaluation
 
@@ -89,11 +90,14 @@ You can also start the demo with `gradio app.py` after installing the dependenci
 ## Environment variables
 
 - `DEMO_MODE`: Defaults to `true`; set to `false` to request live analysis.
-- `MODEL_PROVIDER`: Defaults to `demo`; currently supports `demo` and `openai`.
+- `MODEL_PROVIDER`: Defaults to `demo`; supports `demo`, `openai`, and optional `qwen`.
 - `OPENAI_API_KEY`: Required when `DEMO_MODE=false` and `MODEL_PROVIDER=openai`.
 - `OPENAI_GUARDRAIL_MODEL`: Model used for the input guardrail.
 - `OPENAI_MEAL_MODEL`: Model used for meal analysis.
 - `OPENAI_SAFETY_MODEL`: Model used for output safety review.
+- `QWEN_MODEL_ID`: Optional local model identifier; defaults to `Qwen/Qwen2.5-VL-3B-Instruct`.
+- `QWEN_ALLOW_LOCAL_INFERENCE`: Defaults to `false`; the scaffold will not load or run a model.
+- `QWEN_DEVICE`: Optional device preference for future local inference; defaults to `auto`.
 
 Copy `.env.example` to `.env` for local configuration. Never commit API keys or other secrets.
 

@@ -4,6 +4,10 @@ from dataclasses import dataclass, field
 from typing import Any, Protocol
 
 
+class ProviderUnavailableError(RuntimeError):
+    """Signal that a configured optional provider cannot run safely."""
+
+
 @dataclass(frozen=True)
 class ProviderResult:
     """Raw provider output validated by the public pipeline."""

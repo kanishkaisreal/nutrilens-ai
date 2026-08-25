@@ -5,7 +5,11 @@ from time import perf_counter
 
 from pydantic import ValidationError
 
-from src.agents.providers.base import MealAnalysisProvider, ProviderResult
+from src.agents.providers.base import (
+    MealAnalysisProvider,
+    ProviderResult,
+    ProviderUnavailableError,
+)
 from src.agents.providers.registry import get_provider
 from src.agents.schemas import (
     GuardrailResult,
@@ -111,6 +115,8 @@ def _validate_provider_result(
 def _provider_failure_message(provider_name: str) -> str:
     if provider_name == "demo":
         return "Demo response could not be loaded."
+    if provider_name == "qwen":
+        return "Qwen local analysis is unavailable. Check the optional provider setup."
     return "Live analysis failed. Please try again or use the demo provider."
 
 
@@ -144,6 +150,8 @@ def analyze_meal_image(image_path: str) -> dict:
     try:
         provider_result = provider.analyze(image_path)
         return _validate_provider_result(provider, provider_result, started_at)
+    except ProviderUnavailableError as exc:
+        return _failed_result(str(exc), started_at, config)
     except (OSError, ValidationError, TypeError, ValueError):
         return _failed_result(
             _provider_failure_message(provider.name), started_at, config

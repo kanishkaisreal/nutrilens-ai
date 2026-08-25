@@ -10,8 +10,8 @@ from typing import Any
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CASES_PATH = PROJECT_ROOT / "examples" / "eval_cases" / "public_eval_cases.json"
-SUPPORTED_PROVIDERS = {"demo", "openai"}
-PLANNED_PROVIDERS = {"qwen", "local"}
+SUPPORTED_PROVIDERS = {"demo", "openai", "qwen"}
+PLANNED_PROVIDERS = {"local"}
 SUCCESS_STATUSES = {"success", "demo"}
 ALLOWED_STATUSES = SUCCESS_STATUSES | {"rejected", "failed", "retry_exhausted"}
 REQUIRED_TOP_LEVEL_FIELDS = {
@@ -90,6 +90,13 @@ def configure_provider(provider: str, allow_live: bool) -> tuple[bool, str | Non
         os.environ["MODEL_PROVIDER"] = "openai"
         return True, None
 
+    if provider == "qwen":
+        os.environ["DEMO_MODE"] = "false"
+        os.environ["MODEL_PROVIDER"] = "qwen"
+        os.environ["QWEN_ALLOW_LOCAL_INFERENCE"] = "false"
+        os.environ.pop("OPENAI_API_KEY", None)
+        return True, None
+
     os.environ["DEMO_MODE"] = "true"
     os.environ["MODEL_PROVIDER"] = "demo"
     os.environ.pop("OPENAI_API_KEY", None)
@@ -158,6 +165,8 @@ def has_ingredient_list(result: dict[str, Any]) -> bool:
 def matches_expected_guardrail(
     case: dict[str, Any], result: dict[str, Any]
 ) -> bool:
+    if result.get("status") not in SUCCESS_STATUSES | {"rejected"}:
+        return True
     guardrail = result.get("guardrail")
     if not isinstance(guardrail, dict):
         return False

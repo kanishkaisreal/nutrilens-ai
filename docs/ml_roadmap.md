@@ -32,7 +32,7 @@ The pipeline now selects backends through a small provider contract while keepin
 
 - **Demo provider:** deterministic local response for interface testing.
 - **OpenAI provider:** the current live multimodal path.
-- **Qwen or another open-source VLM provider:** a planned experiment for portability and model comparison; it is not currently implemented.
+- **Qwen provider:** an optional scaffold now recognizes Qwen configuration and fails safely without loading model code or weights. Actual local inference remains a future, explicitly enabled experiment.
 - **Local or lightweight provider:** a future option for lower-latency, lower-cost, or privacy-sensitive use cases where model quality is sufficient.
 
 Provider selection should not change the consumer-facing safety contract. Comparisons should use the same public evaluation dimensions and clearly disclose material capability differences.
