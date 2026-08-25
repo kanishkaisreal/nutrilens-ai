@@ -130,6 +130,16 @@ CarbKind AI is designed as more than a one-off meal analyzer. The longer-term di
 - [ML roadmap](docs/ml_roadmap.md)
 - [Personalization and recipe factorization](docs/personalization_and_recipe_factorization.md)
 
+### Ingredient-factorization prototype
+
+The repository includes an early, deterministic ingredient-role and meal-composer prototype. It uses no model calls or stored user data:
+
+```bash
+python scripts/demo_meal_composer.py
+```
+
+See the [personalization implementation plan](docs/personalization_implementation_plan.md) for its current limits and staged development path.
+
 ## License
 
 This project is available under the [MIT License](LICENSE).
