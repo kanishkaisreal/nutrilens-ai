@@ -10,9 +10,9 @@ NutriLens AI is being designed to turn a meal photo into an understandable estim
 
 Nutrition information from an image is inherently uncertain. This project explores how multimodal AI, explicit safety checks, and clear uncertainty language can make image-based meal guidance more useful and responsible.
 
-## Planned demo
+## Demo
 
-The Gradio demo will accept a meal image and display estimated ingredients, nutrition ranges, assumptions, and safety-reviewed guidance. The current app is a runnable scaffold and returns placeholder text only.
+The Gradio app accepts a meal image and displays a validated demo-mode response with estimated ingredients, nutrition, uncertainty notes, and safety-reviewed guidance. The response is deterministic for now; a live multimodal pipeline is planned next.
 
 ## Planned architecture
 
@@ -44,13 +44,13 @@ Copy `.env.example` to `.env` for local configuration. Never commit API keys or 
 
 ```text
 .
-├── app.py                  # Runnable Gradio scaffold
+├── app.py                  # Runnable Gradio demo
 ├── src/
-│   ├── agents/             # Planned analysis and safety agents
-│   ├── runtime/            # Planned pipeline orchestration
+│   ├── agents/             # Response schemas and demo pipeline
+│   ├── runtime/            # Response construction helpers
 │   ├── utils/              # Shared utilities
 │   └── evals/              # Public evaluation utilities
-├── examples/               # Public sample images, outputs, and screenshots
+├── examples/               # Public demo response, images, and screenshots
 ├── docs/                   # Extended project documentation
 └── notebooks/              # Public exploration notebooks
 ```
@@ -61,7 +61,6 @@ Nutrition estimates are approximate and are not medical advice. Future outputs w
 
 ## Roadmap
 
-- Define structured meal-analysis schemas.
 - Add the multimodal analysis pipeline.
 - Add input guardrails and output safety review.
 - Publish openly licensed sample images and example outputs.

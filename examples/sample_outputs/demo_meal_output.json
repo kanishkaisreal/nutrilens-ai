@@ -1,0 +1,65 @@
+{
+  "status": "demo",
+  "message": "Demo meal analysis loaded.",
+  "guardrail": {
+    "passed": true,
+    "is_valid_image": true,
+    "is_food": true,
+    "blocked_reason": null,
+    "confidence": null
+  },
+  "meal_analysis": {
+    "title": "Grilled Chicken Rice Bowl",
+    "description": "A balanced bowl with grilled chicken, brown rice, mixed greens, cucumber, and dressing.",
+    "recommendation": "yellow",
+    "estimated_nutrition": {
+      "calories": 620,
+      "protein_g": 42,
+      "carbohydrates_g": 68,
+      "fat_g": 19,
+      "fiber_g": 8,
+      "sugar_g": 7,
+      "sodium_mg": 780
+    },
+    "ingredients": [
+      {
+        "name": "Grilled chicken",
+        "impact": "green",
+        "notes": "Estimated lean protein source."
+      },
+      {
+        "name": "Brown rice",
+        "impact": "green",
+        "notes": "Estimated whole-grain carbohydrate source."
+      },
+      {
+        "name": "Mixed greens",
+        "impact": "green",
+        "notes": "Adds vegetables and fiber."
+      },
+      {
+        "name": "Cucumber",
+        "impact": "green",
+        "notes": "Low-energy vegetable component."
+      },
+      {
+        "name": "Dressing",
+        "impact": "yellow",
+        "notes": "Amount and sodium content are difficult to estimate visually."
+      }
+    ],
+    "guidance": "This appears to be a balanced meal. Nutrition and portion estimates are approximate, so adjust the guidance for known ingredients, serving size, and personal dietary needs.",
+    "uncertainty_notes": "The dressing ingredients, cooking oil, and exact portion sizes cannot be confirmed from an image alone."
+  },
+  "safety": {
+    "passed": true,
+    "reasons": [],
+    "revised_guidance": null
+  },
+  "metadata": {
+    "demo_mode": true,
+    "latency_seconds": null,
+    "model_names": {},
+    "prompt_versions": {}
+  }
+}
