@@ -30,12 +30,12 @@ RECOMMENDATION_BADGES = {
     "unknown": "⚪ Unknown",
 }
 
-INGREDIENT_IMPACT_BADGES = {
-    "green": "🟢 Lower",
-    "yellow": "🟡 Moderate",
-    "orange": "🟠 Higher",
-    "red": "🔴 Highest",
-    "unknown": "⚪ Unknown",
+INGREDIENT_IMPACT_LABELS = {
+    "green": "Lower / balanced",
+    "yellow": "Moderate",
+    "orange": "Higher",
+    "red": "Caution",
+    "unknown": "Unknown",
 }
 
 CARB_DESCRIPTIONS = {
@@ -236,21 +236,33 @@ body {
   box-shadow: 0 14px 34px rgba(48, 209, 88, 0.28) !important;
 }
 #analyze-button:active { transform: translateY(0) scale(0.99); }
-.mode-card {
+.mode-banner {
   display: flex;
-  align-items: flex-start;
-  gap: 11px;
-  margin-top: 12px;
-  padding: 13px 14px;
-  border: 1px solid var(--ck-border-soft);
-  border-radius: 17px;
-  background: rgba(255, 255, 255, 0.035);
+  align-items: center;
+  gap: 15px;
+  max-width: 920px;
+  margin: -28px auto 30px;
+  padding: 16px 18px;
+  border: 1px solid rgba(255, 214, 10, 0.24);
+  border-radius: 20px;
+  background: rgba(255, 214, 10, 0.075);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.22);
 }
-.mode-card p {
-  margin: 1px 0 0;
-  color: var(--ck-muted);
-  font-size: 0.82rem;
-  line-height: 1.45;
+.mode-banner.live {
+  border-color: rgba(48, 209, 88, 0.24);
+  background: rgba(48, 209, 88, 0.075);
+}
+.mode-banner.warning {
+  border-color: rgba(255, 159, 10, 0.24);
+  background: rgba(255, 159, 10, 0.075);
+}
+.mode-banner-copy { min-width: 0; }
+.mode-banner h2 { margin: 0 0 3px; color: var(--ck-text); font-size: 1rem; }
+.mode-banner p {
+  margin: 0;
+  color: #c7c7cc;
+  font-size: 0.88rem;
+  line-height: 1.5;
 }
 .mode-pill {
   flex: 0 0 auto;
@@ -263,6 +275,17 @@ body {
 .mode-demo { background: rgba(255, 214, 10, 0.14); color: var(--ck-yellow); }
 .mode-live { background: rgba(48, 209, 88, 0.14); color: var(--ck-green); }
 .mode-warning { background: rgba(255, 159, 10, 0.14); color: var(--ck-orange); }
+.upload-mode-note {
+  margin-top: 12px;
+  padding: 13px 14px;
+  border: 1px solid var(--ck-border-soft);
+  border-radius: 17px;
+  background: rgba(255, 255, 255, 0.035);
+  color: var(--ck-muted);
+  font-size: 0.82rem;
+  line-height: 1.48;
+}
+.upload-mode-note strong { color: var(--ck-text); }
 .result-card {
   min-height: 100%;
   padding: clamp(24px, 4.5vw, 40px);
@@ -293,6 +316,24 @@ body {
   color: var(--ck-muted);
   font-size: 1rem;
   line-height: 1.55;
+}
+.result-context {
+  margin: 12px 0 -5px;
+  padding: 10px 12px;
+  border-radius: 13px;
+  font-size: 0.82rem;
+  font-weight: 680;
+  line-height: 1.4;
+}
+.demo-context {
+  border: 1px solid rgba(255, 214, 10, 0.18);
+  background: rgba(255, 214, 10, 0.085);
+  color: #ffe45c;
+}
+.live-context {
+  border: 1px solid rgba(48, 209, 88, 0.16);
+  background: rgba(48, 209, 88, 0.075);
+  color: #7be695;
 }
 .rating-pill {
   display: inline-flex;
@@ -388,23 +429,55 @@ body {
   font-size: clamp(1.45rem, 3vw, 2rem);
   letter-spacing: -0.035em;
 }
-.quiet-table {
+.detail-card {
   overflow: hidden;
-  border: 1px solid var(--ck-border) !important;
-  border-radius: 22px !important;
-  background: var(--ck-surface) !important;
+  height: 100%;
+  border: 1px solid var(--ck-border);
+  border-radius: 22px;
+  background: var(--ck-surface);
 }
-.quiet-table table { background: transparent !important; color: var(--ck-text) !important; }
-.quiet-table th {
-  border-color: var(--ck-border-soft) !important;
-  background: rgba(255, 255, 255, 0.055) !important;
-  color: #d1d1d6 !important;
+.detail-card h3 {
+  margin: 0;
+  padding: 17px 19px;
+  border-bottom: 1px solid var(--ck-border-soft);
+  color: var(--ck-text);
+  font-size: 0.95rem;
 }
-.quiet-table td {
-  border-color: var(--ck-border-soft) !important;
-  background: rgba(0, 0, 0, 0.12) !important;
-  color: var(--ck-muted) !important;
+.table-scroll { max-width: 100%; overflow-x: auto; scrollbar-color: #3a3a3c transparent; }
+.dark-data-table {
+  width: 100%;
+  min-width: 360px;
+  border-collapse: collapse;
+  background: transparent;
+  color: var(--ck-text);
+  font-size: 0.87rem;
 }
+.dark-data-table th, .dark-data-table td {
+  padding: 13px 17px;
+  border-bottom: 1px solid var(--ck-border-soft);
+  text-align: left;
+  vertical-align: top;
+}
+.dark-data-table th {
+  background: rgba(255, 255, 255, 0.055);
+  color: #d1d1d6;
+  font-size: 0.72rem;
+  font-weight: 720;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+}
+.dark-data-table td { background: rgba(0, 0, 0, 0.12); color: #b7b7bf; line-height: 1.45; }
+.dark-data-table tbody tr:last-child td { border-bottom: 0; }
+.dark-data-table tbody tr:hover td { background: rgba(255, 255, 255, 0.045); }
+.dark-data-table tbody tr:focus-within td { background: rgba(48, 209, 88, 0.07); }
+.dark-data-table td:first-child { color: var(--ck-text); font-weight: 620; }
+.impact { display: inline-flex; align-items: center; gap: 7px; color: #d1d1d6; font-weight: 620; white-space: nowrap; }
+.impact-dot { width: 8px; height: 8px; flex: 0 0 8px; border-radius: 50%; background: #8e8e93; box-shadow: 0 0 0 3px rgba(142, 142, 147, 0.12); }
+.impact-green .impact-dot { background: var(--ck-green); box-shadow: 0 0 0 3px rgba(48, 209, 88, 0.13); }
+.impact-yellow .impact-dot { background: var(--ck-yellow); box-shadow: 0 0 0 3px rgba(255, 214, 10, 0.13); }
+.impact-orange .impact-dot { background: var(--ck-orange); box-shadow: 0 0 0 3px rgba(255, 159, 10, 0.13); }
+.impact-red .impact-dot { background: var(--ck-red); box-shadow: 0 0 0 3px rgba(255, 69, 58, 0.13); }
+.table-empty { margin: 0; padding: 22px 19px; color: var(--ck-muted); font-size: 0.87rem; }
 .advanced-panel {
   margin-top: 18px !important;
   overflow: hidden;
@@ -454,7 +527,8 @@ body {
   .metric-grid { gap: 6px; }
   .metric { padding: 14px 4px; border-radius: 15px; }
   .metric strong { font-size: 1.05rem; }
-  .mode-card { flex-direction: column; }
+  .mode-banner { align-items: flex-start; flex-direction: column; margin-top: -20px; }
+  .dark-data-table th, .dark-data-table td { padding: 12px 14px; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -477,8 +551,8 @@ INITIAL_RESULT_CARD = """
 
 UIOutput = tuple[
     str,
-    list[list[str]],
-    list[list[str]],
+    str,
+    str,
     str,
     dict[str, Any],
 ]
@@ -496,31 +570,50 @@ def find_sample_images(directory: Path = SAMPLE_IMAGE_DIRECTORY) -> list[str]:
     ]
 
 
-def runtime_mode_note() -> str:
-    """Return a non-technical description of the configured analysis mode."""
+def runtime_mode_banner() -> str:
+    """Return a prominent explanation of the configured analysis mode."""
     config = load_config()
     if config.demo_mode:
-        label = "Demo mode"
+        label = "Demo Mode"
         pill_class = "mode-demo"
+        banner_class = "demo"
         detail = (
-            "Demo mode shows a sample structured meal analysis so you can try "
-            "the interface without an API key."
+            "This is a fixed sample response. Your uploaded image is used only to "
+            "preview the interface. Turn off DEMO_MODE to analyze real images."
         )
     elif not config.openai_api_key:
-        label = "Live mode"
+        label = "Live Mode"
         pill_class = "mode-warning"
-        detail = "Add an API key or switch back to demo mode before analyzing a meal."
+        banner_class = "warning"
+        detail = (
+            "Your uploaded image is analyzed by the configured model pipeline. "
+            "Add an API key before analyzing a meal."
+        )
     else:
-        label = "Live mode"
+        label = "Live Mode"
         pill_class = "mode-live"
-        detail = "Live mode analyzes the uploaded image using the configured model pipeline."
+        banner_class = "live"
+        detail = "Your uploaded image is analyzed by the configured model pipeline."
 
     return (
-        '<div class="mode-card">'
+        f'<aside class="mode-banner {banner_class}" aria-label="Application mode">'
         f'<span class="mode-pill {pill_class}">{label}</span>'
-        f"<p>{detail}</p>"
-        "</div>"
+        '<div class="mode-banner-copy">'
+        f"<h2>{label}</h2><p>{detail}</p>"
+        "</div></aside>"
     )
+
+
+def runtime_upload_note() -> str:
+    """Explain how the uploaded image is handled in the current mode."""
+    if load_config().demo_mode:
+        detail = (
+            "Demo mode is currently active. You can upload or choose a sample image "
+            "to preview the interface, but the response is a fixed sample meal."
+        )
+    else:
+        detail = "Live mode analyzes the uploaded image using the configured model pipeline."
+    return f'<div class="upload-mode-note"><strong>Mode:</strong> {detail}</div>'
 
 
 def recommendation_badge(label: str | None) -> str:
@@ -619,14 +712,27 @@ def format_consumer_summary(result: dict[str, Any]) -> str:
     carb_watch = escape(format_carb_watch(meal_analysis))
     guidance = escape(str(meal_analysis.get("guidance", "")))
     uncertainty = escape(str(meal_analysis.get("uncertainty_notes") or ""))
+    is_demo = bool((result.get("metadata") or {}).get("demo_mode"))
+    result_context = (
+        '<div class="result-context demo-context">'
+        "Sample result, not analysis of your uploaded image."
+        "</div>"
+        if is_demo
+        else '<div class="result-context live-context">Estimated from your uploaded image.</div>'
+    )
 
-    estimate_note = "Nutrition values are estimated from an image."
+    estimate_note = (
+        "Nutrition values are part of this fixed sample response."
+        if is_demo
+        else "Nutrition values are estimated from an image."
+    )
     if uncertainty:
         estimate_note = f"{estimate_note} {uncertainty}"
 
     return f"""
 <article class="result-card">
   <span class="rating-pill rating-{rating_class}">{badge}</span>
+  {result_context}
   <h2>{title}</h2>
   <p class="description">{description}</p>
   <div class="metric-grid">{format_primary_metrics(meal_analysis)}</div>
@@ -663,13 +769,90 @@ def format_ingredients_table(meal_analysis: dict[str, Any]) -> list[list[str]]:
         rows.append(
             [
                 str(ingredient.get("name", "")),
-                INGREDIENT_IMPACT_BADGES.get(
-                    impact, INGREDIENT_IMPACT_BADGES["unknown"]
-                ),
+                impact if impact in INGREDIENT_IMPACT_LABELS else "unknown",
                 str(ingredient.get("notes") or ""),
             ]
         )
     return rows
+
+
+def _render_dark_table(
+    *, title: str, headers: tuple[str, ...], rows: list[list[str]], empty_text: str
+) -> str:
+    """Render escaped table content without relying on dataframe theme internals."""
+    safe_title = escape(title)
+    if not rows:
+        return (
+            '<section class="detail-card">'
+            f"<h3>{safe_title}</h3>"
+            f'<p class="table-empty">{escape(empty_text)}</p>'
+            "</section>"
+        )
+    headings = "".join(
+        f'<th scope="col">{escape(header)}</th>' for header in headers
+    )
+    body = "".join(
+        "<tr>"
+        + "".join(f"<td>{escape(str(value))}</td>" for value in row)
+        + "</tr>"
+        for row in rows
+    )
+    return (
+        '<section class="detail-card">'
+        f"<h3>{safe_title}</h3>"
+        f'<div class="table-scroll" role="region" aria-label="{safe_title}">'
+        '<table class="dark-data-table">'
+        f"<thead><tr>{headings}</tr></thead><tbody>{body}</tbody>"
+        "</table></div></section>"
+    )
+
+
+def render_nutrition_html(rows: list[list[str]]) -> str:
+    """Render nutrition rows as a readable dark-theme table."""
+    return _render_dark_table(
+        title="Nutrition details",
+        headers=("Metric", "Estimate"),
+        rows=rows,
+        empty_text="No nutrition details yet.",
+    )
+
+
+def render_ingredients_html(rows: list[list[str]]) -> str:
+    """Render escaped ingredient rows with allowlisted impact indicators."""
+    if not rows:
+        return _render_dark_table(
+            title="Estimated ingredients",
+            headers=("Ingredient", "Impact", "Notes"),
+            rows=[],
+            empty_text="No ingredient details yet.",
+        )
+
+    rendered_rows: list[str] = []
+    for row in rows:
+        name = row[0] if len(row) > 0 else ""
+        raw_impact = str(row[1] if len(row) > 1 else "unknown").lower()
+        impact = raw_impact if raw_impact in INGREDIENT_IMPACT_LABELS else "unknown"
+        notes = row[2] if len(row) > 2 else ""
+        rendered_rows.append(
+            "<tr>"
+            f"<td>{escape(str(name))}</td>"
+            f'<td><span class="impact impact-{impact}"><span class="impact-dot" '
+            f'aria-hidden="true"></span>{escape(INGREDIENT_IMPACT_LABELS[impact])}</span></td>'
+            f"<td>{escape(str(notes))}</td>"
+            "</tr>"
+        )
+
+    headings = "".join(
+        f'<th scope="col">{escape(header)}</th>'
+        for header in ("Ingredient", "Impact", "Notes")
+    )
+    return (
+        '<section class="detail-card"><h3>Estimated ingredients</h3>'
+        '<div class="table-scroll" role="region" aria-label="Estimated ingredients">'
+        '<table class="dark-data-table">'
+        f"<thead><tr>{headings}</tr></thead><tbody>{''.join(rendered_rows)}</tbody>"
+        "</table></div></section>"
+    )
 
 
 def format_support_note(result: dict[str, Any]) -> str:
@@ -714,8 +897,8 @@ def _format_ui_output(result: dict[str, Any]) -> UIOutput:
     meal_analysis = result.get("meal_analysis") or {}
     return (
         format_consumer_summary(result),
-        format_nutrition_table(meal_analysis),
-        format_ingredients_table(meal_analysis),
+        render_nutrition_html(format_nutrition_table(meal_analysis)),
+        render_ingredients_html(format_ingredients_table(meal_analysis)),
         format_support_note(result),
         result,
     )
@@ -760,6 +943,7 @@ with gr.Blocks(title="CarbKind AI") as demo:
         </section>
         """
     )
+    gr.HTML(runtime_mode_banner())
 
     with gr.Row(equal_height=False, elem_classes=["app-grid"]):
         with gr.Column(scale=2, min_width=290, elem_classes=["upload-card"]):
@@ -780,7 +964,7 @@ with gr.Blocks(title="CarbKind AI") as demo:
                     inputs=[meal_image],
                     label="Or try a sample meal",
                 )
-            gr.HTML(runtime_mode_note())
+            gr.HTML(runtime_upload_note())
 
         with gr.Column(scale=3, min_width=320):
             consumer_summary = gr.HTML(INITIAL_RESULT_CARD)
@@ -794,19 +978,9 @@ with gr.Blocks(title="CarbKind AI") as demo:
     )
     with gr.Row(equal_height=False, elem_classes=["details-grid"]):
         with gr.Column(scale=2):
-            nutrition_table = gr.Dataframe(
-                headers=["Metric", "Estimate"],
-                label="Nutrition details",
-                interactive=False,
-                elem_classes=["quiet-table"],
-            )
+            nutrition_table = gr.HTML(render_nutrition_html([]))
         with gr.Column(scale=3):
-            ingredient_table = gr.Dataframe(
-                headers=["Ingredient", "Impact", "Notes"],
-                label="Estimated ingredients",
-                interactive=False,
-                elem_classes=["quiet-table"],
-            )
+            ingredient_table = gr.HTML(render_ingredients_html([]))
 
     with gr.Accordion(
         "Advanced: structured response",

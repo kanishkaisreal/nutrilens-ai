@@ -30,6 +30,8 @@ Demo mode works without an API key. You can upload your own meal photo or click 
 
 Demo mode is the default. It works without an API key, makes no model requests, and returns the included sample structured response.
 
+In demo mode, the uploaded image is not analyzed; the app returns a fixed sample response so the interface can be tested without an API key.
+
 Live mode requires an `OPENAI_API_KEY` and runs three model-backed steps: image guardrail, meal analysis, and output safety review. To enable it:
 
 1. Copy `.env.example` to `.env`.
