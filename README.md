@@ -2,6 +2,8 @@
 
 NutriLens AI is a safety-gated multimodal AI-agent system that analyzes meal images, estimates nutrition and ingredients, and returns structured, safety-reviewed meal guidance.
 
+NutriLens AI is designed to make meal analysis feel simple and consumer-friendly: upload a food photo, get a clear nutrition summary, carb estimate, and practical portion guidance.
+
 ![NutriLens AI how it works](examples/screenshots/nutrilens_how_it_works.svg)
 
 ## What it does

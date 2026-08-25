@@ -13,13 +13,13 @@
     "description": "A balanced bowl with grilled chicken, brown rice, mixed greens, cucumber, and dressing.",
     "recommendation": "yellow",
     "estimated_nutrition": {
-      "calories": 620,
-      "protein_g": 42,
-      "carbohydrates_g": 68,
-      "fat_g": 19,
-      "fiber_g": 8,
-      "sugar_g": 7,
-      "sodium_mg": 780
+      "calories": 420,
+      "protein_g": 32,
+      "carbohydrates_g": 38,
+      "fat_g": 14,
+      "fiber_g": 7,
+      "sugar_g": 5,
+      "sodium_mg": 650
     },
     "ingredients": [
       {
@@ -48,7 +48,7 @@
         "notes": "Amount and sodium content are difficult to estimate visually."
       }
     ],
-    "guidance": "This appears to be a balanced meal. Nutrition and portion estimates are approximate, so adjust the guidance for known ingredients, serving size, and personal dietary needs.",
+    "guidance": "For a lower-carb plate, consider reducing the rice portion and adding more non-starchy vegetables.",
     "uncertainty_notes": "The dressing ingredients, cooking oil, and exact portion sizes cannot be confirmed from an image alone."
   },
   "safety": {
