@@ -64,81 +64,401 @@ SAMPLE_IMAGE_DIRECTORY = Path("examples") / "sample_images"
 SUPPORTED_IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp"}
 
 APP_CSS = """
+:root {
+  color-scheme: dark;
+  --ck-page: #050505;
+  --ck-surface: rgba(255, 255, 255, 0.06);
+  --ck-surface-raised: rgba(255, 255, 255, 0.09);
+  --ck-border: rgba(255, 255, 255, 0.12);
+  --ck-border-soft: rgba(255, 255, 255, 0.08);
+  --ck-text: #f5f5f7;
+  --ck-muted: #a1a1aa;
+  --ck-green: #30d158;
+  --ck-yellow: #ffd60a;
+  --ck-orange: #ff9f0a;
+  --ck-red: #ff453a;
+  --ck-blue: #0a84ff;
+}
+html { scroll-behavior: smooth; background: var(--ck-page); }
+body {
+  background:
+    radial-gradient(circle at 18% -10%, rgba(48, 209, 88, 0.11), transparent 32rem),
+    radial-gradient(circle at 92% 18%, rgba(10, 132, 255, 0.08), transparent 28rem),
+    var(--ck-page) !important;
+}
 .gradio-container {
-  max-width: 1080px !important;
+  --body-background-fill: transparent;
+  --background-fill-primary: #0b0b0c;
+  --background-fill-secondary: #121214;
+  --block-background-fill: var(--ck-surface);
+  --block-border-color: var(--ck-border);
+  --block-label-background-fill: transparent;
+  --body-text-color: var(--ck-text);
+  --body-text-color-subdued: var(--ck-muted);
+  --input-background-fill: #0b0b0d;
+  --input-border-color: var(--ck-border);
+  --button-primary-background-fill: var(--ck-green);
+  --button-primary-background-fill-hover: #3ee36a;
+  --button-primary-text-color: #031006;
+  max-width: 1100px !important;
+  width: 100% !important;
+  min-height: 100vh !important;
   margin: 0 auto !important;
-  background: #f5f5f7 !important;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  padding: 0 22px 52px !important;
+  background:
+    radial-gradient(circle at 18% -10%, rgba(48, 209, 88, 0.11), transparent 32rem),
+    radial-gradient(circle at 92% 18%, rgba(10, 132, 255, 0.08), transparent 28rem),
+    var(--ck-page) !important;
+  box-shadow: 0 0 0 100vmax var(--ck-page);
+  clip-path: inset(0 -100vmax);
+  color: var(--ck-text) !important;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif !important;
+  -webkit-font-smoothing: antialiased;
 }
-#hero { max-width: 720px; margin: 0 auto 24px; padding: 34px 18px 8px; text-align: center; }
+.gradio-container,
+.gradio-container *,
+.gradio-container *::before,
+.gradio-container *::after { box-sizing: border-box; }
+.gradio-container main {
+  width: 100% !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+#hero {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: clamp(54px, 9vw, 100px) 16px clamp(34px, 6vw, 62px);
+  text-align: center;
+}
+#hero .hero-eyebrow {
+  margin: 0 0 18px;
+  color: var(--ck-green);
+  font-size: 0.76rem;
+  font-weight: 750;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
 #hero h1 {
-  margin: 0 0 8px; color: #1d1d1f; font-size: clamp(2rem, 6vw, 3.4rem);
-  letter-spacing: -0.045em; line-height: 1.05;
+  margin: 0;
+  color: var(--ck-text);
+  font-size: clamp(3rem, 9vw, 5.7rem);
+  font-weight: 740;
+  letter-spacing: -0.065em;
+  line-height: 0.96;
 }
-#hero .hero-subtitle { margin: 0; color: #6e6e73; font-size: clamp(1.05rem, 2.6vw, 1.35rem); }
+#hero .hero-subtitle {
+  margin: 20px 0 0;
+  color: var(--ck-text);
+  font-size: clamp(1.35rem, 3vw, 2rem);
+  font-weight: 580;
+  letter-spacing: -0.025em;
+}
+#hero .hero-description {
+  max-width: 660px;
+  margin: 16px auto 0;
+  color: var(--ck-muted);
+  font-size: clamp(1rem, 2vw, 1.12rem);
+  line-height: 1.6;
+}
 #hero .hero-safety {
-  display: inline-block; margin-top: 14px; padding: 7px 12px; border-radius: 999px;
-  background: #eaf4ee; color: #37624f; font-size: 0.88rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 22px;
+  padding: 8px 13px;
+  border: 1px solid var(--ck-border-soft);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  color: #c7c7cc;
+  font-size: 0.84rem;
+}
+.app-grid, .details-grid {
+  gap: 18px !important;
+  align-items: stretch !important;
 }
 .upload-card {
-  padding: 18px !important; border: 1px solid rgba(29, 29, 31, 0.08) !important;
-  border-radius: 24px !important; background: #fff !important;
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.06) !important;
+  overflow: hidden;
+  padding: clamp(18px, 3vw, 26px) !important;
+  border: 1px solid var(--ck-border) !important;
+  border-radius: 30px !important;
+  background: var(--ck-surface) !important;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.34) !important;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
 }
-.upload-card h3 { margin-top: 0; color: #1d1d1f; letter-spacing: -0.02em; }
-.demo-note {
-  margin-top: 10px; padding: 12px 14px; border-radius: 14px; background: #eef7f2;
-  color: #37624f; font-size: 0.88rem; line-height: 1.45;
+.upload-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.18) !important;
+  background: rgba(255, 255, 255, 0.075) !important;
 }
+.panel-heading { margin: 0 0 16px; }
+.panel-heading span {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--ck-muted);
+  font-size: 0.76rem;
+  font-weight: 720;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.panel-heading h2 {
+  margin: 0;
+  color: var(--ck-text);
+  font-size: 1.32rem;
+  letter-spacing: -0.025em;
+}
+#meal-image {
+  overflow: hidden;
+  border: 1px solid var(--ck-border) !important;
+  border-radius: 22px !important;
+  background: rgba(0, 0, 0, 0.28) !important;
+}
+#meal-image .wrap, #meal-image .image-container {
+  background: transparent !important;
+}
+#analyze-button {
+  min-height: 52px !important;
+  margin-top: 5px;
+  border: 0 !important;
+  border-radius: 16px !important;
+  background: linear-gradient(180deg, #3adb64 0%, var(--ck-green) 100%) !important;
+  box-shadow: 0 10px 28px rgba(48, 209, 88, 0.2) !important;
+  color: #031006 !important;
+  font-size: 1rem !important;
+  font-weight: 760 !important;
+  transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+}
+#analyze-button:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.06);
+  box-shadow: 0 14px 34px rgba(48, 209, 88, 0.28) !important;
+}
+#analyze-button:active { transform: translateY(0) scale(0.99); }
+.mode-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  margin-top: 12px;
+  padding: 13px 14px;
+  border: 1px solid var(--ck-border-soft);
+  border-radius: 17px;
+  background: rgba(255, 255, 255, 0.035);
+}
+.mode-card p {
+  margin: 1px 0 0;
+  color: var(--ck-muted);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+.mode-pill {
+  flex: 0 0 auto;
+  padding: 5px 9px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 740;
+  white-space: nowrap;
+}
+.mode-demo { background: rgba(255, 214, 10, 0.14); color: var(--ck-yellow); }
+.mode-live { background: rgba(48, 209, 88, 0.14); color: var(--ck-green); }
+.mode-warning { background: rgba(255, 159, 10, 0.14); color: var(--ck-orange); }
 .result-card {
-  min-height: 100%; padding: clamp(22px, 4vw, 34px); border-radius: 28px;
-  border: 1px solid rgba(29, 29, 31, 0.08); background: #fff;
-  box-shadow: 0 16px 46px rgba(0, 0, 0, 0.07); color: #1d1d1f;
+  min-height: 100%;
+  padding: clamp(24px, 4.5vw, 40px);
+  border: 1px solid var(--ck-border);
+  border-radius: 32px;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.105), rgba(255, 255, 255, 0.045));
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.42);
+  color: var(--ck-text);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  transition: transform 240ms ease, border-color 240ms ease;
+}
+.result-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.18);
 }
 .result-card h2 {
-  margin: 10px 0 8px; font-size: clamp(1.7rem, 4vw, 2.35rem);
-  letter-spacing: -0.035em; line-height: 1.12;
+  margin: 16px 0 9px;
+  color: var(--ck-text);
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 680;
+  letter-spacing: -0.05em;
+  line-height: 1.03;
 }
 .result-card .description {
-  margin: 0 0 20px; color: #6e6e73; font-size: 1rem; line-height: 1.55;
+  margin: 0 0 22px;
+  color: var(--ck-muted);
+  font-size: 1rem;
+  line-height: 1.55;
 }
 .rating-pill {
-  display: inline-flex; padding: 7px 12px; border-radius: 999px;
-  font-size: 0.9rem; font-weight: 650;
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 11px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 720;
 }
-.rating-green { background: #e8f7ee; color: #176a42; }
-.rating-yellow { background: #fff5d6; color: #7a5a00; }
-.rating-orange { background: #ffecd7; color: #974d00; }
-.rating-red { background: #fde8e7; color: #a12b24; }
-.rating-unknown { background: #eeeeef; color: #5b5b60; }
+.rating-green { border-color: rgba(48, 209, 88, 0.2); background: rgba(48, 209, 88, 0.13); color: #65e883; }
+.rating-yellow { border-color: rgba(255, 214, 10, 0.2); background: rgba(255, 214, 10, 0.12); color: var(--ck-yellow); }
+.rating-orange { border-color: rgba(255, 159, 10, 0.2); background: rgba(255, 159, 10, 0.12); color: var(--ck-orange); }
+.rating-red { border-color: rgba(255, 69, 58, 0.2); background: rgba(255, 69, 58, 0.12); color: #ff6961; }
+.rating-unknown { border-color: var(--ck-border); background: rgba(255, 255, 255, 0.07); color: #d1d1d6; }
 .metric-grid {
-  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px; margin: 20px 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 9px;
+  margin: 22px 0;
 }
-.metric { padding: 14px 10px; border-radius: 16px; background: #f7f7f9; text-align: center; }
+.metric {
+  padding: 16px 8px;
+  border: 1px solid var(--ck-border-soft);
+  border-radius: 18px;
+  background: rgba(0, 0, 0, 0.22);
+  text-align: center;
+}
 .metric strong {
-  display: block; font-size: clamp(1.15rem, 3vw, 1.5rem); letter-spacing: -0.025em;
+  display: block;
+  color: var(--ck-text);
+  font-size: clamp(1.18rem, 3vw, 1.5rem);
+  font-weight: 670;
+  letter-spacing: -0.03em;
 }
-.metric span { color: #6e6e73; font-size: 0.78rem; }
+.metric span {
+  display: block;
+  margin-top: 4px;
+  color: var(--ck-muted);
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.045em;
+  text-transform: uppercase;
+}
 .insight-box {
-  margin-top: 12px; padding: 15px 16px; border-radius: 18px;
-  background: #f0f7f3; line-height: 1.5;
+  margin-top: 11px;
+  padding: 16px 17px;
+  border: 1px solid rgba(48, 209, 88, 0.12);
+  border-radius: 19px;
+  background: rgba(48, 209, 88, 0.075);
+  color: #dedee3;
+  line-height: 1.52;
 }
-.insight-box.suggestion { background: #f6f4fb; }
-.insight-box strong { display: block; margin-bottom: 4px; }
+.insight-box.suggestion {
+  border-color: rgba(10, 132, 255, 0.13);
+  background: rgba(10, 132, 255, 0.075);
+}
+.insight-box strong {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--ck-text);
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+}
 .estimate-note {
-  margin: 18px 0 0; color: #6e6e73; font-size: 0.78rem; line-height: 1.45;
+  margin: 20px 0 0;
+  color: #85858d;
+  font-size: 0.76rem;
+  line-height: 1.5;
 }
+.state-card { display: flex; min-height: 420px; flex-direction: column; justify-content: center; }
 .support-note {
-  padding: 12px 16px; border-radius: 16px; background: rgba(255, 255, 255, 0.72);
-  color: #6e6e73; font-size: 0.9rem;
+  margin-top: 10px;
+  padding: 11px 15px;
+  border: 1px solid var(--ck-border-soft);
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.035);
+  color: var(--ck-muted);
+  font-size: 0.78rem;
+  line-height: 1.45;
 }
-.details-heading { margin: 26px 0 8px; }
-@media (max-width: 700px) {
-  #hero { padding-top: 20px; }
-  .upload-card, .result-card { border-radius: 20px !important; }
-  .metric-grid { gap: 7px; }
-  .metric { padding: 12px 5px; }
+.section-heading { margin: clamp(34px, 6vw, 58px) 0 15px; }
+.section-heading span {
+  color: var(--ck-green);
+  font-size: 0.72rem;
+  font-weight: 720;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.section-heading h2 {
+  margin: 6px 0 0;
+  color: var(--ck-text);
+  font-size: clamp(1.45rem, 3vw, 2rem);
+  letter-spacing: -0.035em;
+}
+.quiet-table {
+  overflow: hidden;
+  border: 1px solid var(--ck-border) !important;
+  border-radius: 22px !important;
+  background: var(--ck-surface) !important;
+}
+.quiet-table table { background: transparent !important; color: var(--ck-text) !important; }
+.quiet-table th {
+  border-color: var(--ck-border-soft) !important;
+  background: rgba(255, 255, 255, 0.055) !important;
+  color: #d1d1d6 !important;
+}
+.quiet-table td {
+  border-color: var(--ck-border-soft) !important;
+  background: rgba(0, 0, 0, 0.12) !important;
+  color: var(--ck-muted) !important;
+}
+.advanced-panel {
+  margin-top: 18px !important;
+  overflow: hidden;
+  border: 1px solid var(--ck-border-soft) !important;
+  border-radius: 18px !important;
+  background: rgba(255, 255, 255, 0.025) !important;
+  color: var(--ck-muted) !important;
+}
+.gradio-container .prose h1,
+.gradio-container .prose h2,
+.gradio-container .prose h3,
+.gradio-container label { color: var(--ck-text) !important; }
+.gradio-container .prose, .gradio-container p { color: inherit; }
+.gradio-container footer { display: none !important; }
+@media (max-width: 760px) {
+  .gradio-container {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+    padding: 0 14px 36px !important;
+  }
+  .gradio-container > * { max-width: 100% !important; }
+  #hero { width: 100%; max-width: 100%; padding-top: 44px; }
+  #hero .hero-subtitle, #hero .hero-description { overflow-wrap: anywhere; }
+  .app-grid, .details-grid {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .app-grid > *, .details-grid > * {
+    min-width: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .upload-card, .result-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    border-radius: 24px !important;
+  }
+  .result-card { min-height: auto; }
+  .state-card { min-height: 310px; }
+}
+@media (max-width: 430px) {
+  #hero h1 { font-size: 3.15rem; }
+  .metric-grid { gap: 6px; }
+  .metric { padding: 14px 4px; border-radius: 15px; }
+  .metric strong { font-size: 1.05rem; }
+  .mode-card { flex-direction: column; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; }
 }
 """
 
@@ -180,22 +500,25 @@ def runtime_mode_note() -> str:
     """Return a non-technical description of the configured analysis mode."""
     config = load_config()
     if config.demo_mode:
-        heading = "Demo mode is active."
+        label = "Demo mode"
+        pill_class = "mode-demo"
         detail = (
-            "The interface uses a sample structured meal analysis and does not "
-            "make an API request."
+            "Demo mode shows a sample structured meal analysis so you can try "
+            "the interface without an API key."
         )
     elif not config.openai_api_key:
-        heading = "Live mode needs configuration."
+        label = "Live mode"
+        pill_class = "mode-warning"
         detail = "Add an API key or switch back to demo mode before analyzing a meal."
     else:
-        heading = "Live analysis is active."
-        detail = "Your photo will be checked, analyzed, and safety-reviewed."
+        label = "Live mode"
+        pill_class = "mode-live"
+        detail = "Live mode analyzes the uploaded image using the configured model pipeline."
 
     return (
-        '<div class="demo-note">'
-        f"<strong>{heading}</strong><br>"
-        f"{detail}"
+        '<div class="mode-card">'
+        f'<span class="mode-pill {pill_class}">{label}</span>'
+        f"<p>{detail}</p>"
         "</div>"
     )
 
@@ -258,12 +581,7 @@ def format_carb_watch(meal_analysis: dict[str, Any]) -> str:
         if source
         else " The main carb source is uncertain from the photo."
     )
-    portion_target = source.lower() if source else "starchy foods"
-    return (
-        f"This meal appears {carb_description}{carb_amount}.{source_sentence} "
-        "If you are watching carbohydrate intake or glucose response, consider a "
-        f"smaller portion of {portion_target} or add more non-starchy vegetables."
-    )
+    return f"This meal appears {carb_description}{carb_amount}.{source_sentence}"
 
 
 def format_consumer_summary(result: dict[str, Any]) -> str:
@@ -273,7 +591,7 @@ def format_consumer_summary(result: dict[str, Any]) -> str:
 
     if status == "rejected":
         return (
-            '<article class="result-card">'
+            '<article class="result-card state-card">'
             '<span class="rating-pill rating-orange">Photo not analyzed</span>'
             "<h2>Please try another meal photo</h2>"
             f'<p class="description">{message}</p>'
@@ -282,7 +600,7 @@ def format_consumer_summary(result: dict[str, Any]) -> str:
         )
     if status in {"failed", "retry_exhausted"}:
         return (
-            '<article class="result-card">'
+            '<article class="result-card state-card">'
             '<span class="rating-pill rating-red">Analysis unavailable</span>'
             "<h2>We could not show a result</h2>"
             f'<p class="description">{message}</p>'
@@ -431,18 +749,30 @@ with gr.Blocks(title="CarbKind AI") as demo:
     gr.HTML(
         """
         <section id="hero">
-          <h1>CarbKind AI 🥗</h1>
+          <p class="hero-eyebrow">Food-photo clarity</p>
+          <h1>CarbKind AI</h1>
           <p class="hero-subtitle">Snap a meal. Understand the carbs.</p>
-          <span class="hero-safety">Approximate nutrition estimate. Not medical advice.</span>
+          <p class="hero-description">
+            A simple food-photo assistant for approximate nutrition, carb awareness,
+            and portion guidance.
+          </p>
+          <span class="hero-safety">✦ Approximate estimates only. Not medical advice.</span>
         </section>
         """
     )
 
-    with gr.Row(equal_height=False):
+    with gr.Row(equal_height=False, elem_classes=["app-grid"]):
         with gr.Column(scale=2, min_width=290, elem_classes=["upload-card"]):
-            gr.Markdown("### Add your meal photo")
-            meal_image = gr.Image(type="pil", label="Meal photo", height=330)
-            analyze_button = gr.Button("Analyze Meal", variant="primary")
+            gr.HTML(
+                '<div class="panel-heading"><span>Step one</span>'
+                "<h2>Add your meal photo</h2></div>"
+            )
+            meal_image = gr.Image(
+                type="pil", label="Meal photo", height=330, elem_id="meal-image"
+            )
+            analyze_button = gr.Button(
+                "Analyze Meal", variant="primary", elem_id="analyze-button"
+            )
             sample_images = find_sample_images()
             if sample_images:
                 gr.Examples(
@@ -458,22 +788,31 @@ with gr.Blocks(title="CarbKind AI") as demo:
                 '<div class="support-note">Add a photo to see an approximate result.</div>'
             )
 
-    gr.Markdown("## Meal details", elem_classes=["details-heading"])
-    with gr.Row(equal_height=False):
+    gr.HTML(
+        '<div class="section-heading"><span>Explore the estimate</span>'
+        "<h2>Meal details</h2></div>"
+    )
+    with gr.Row(equal_height=False, elem_classes=["details-grid"]):
         with gr.Column(scale=2):
             nutrition_table = gr.Dataframe(
                 headers=["Metric", "Estimate"],
                 label="Nutrition details",
                 interactive=False,
+                elem_classes=["quiet-table"],
             )
         with gr.Column(scale=3):
             ingredient_table = gr.Dataframe(
                 headers=["Ingredient", "Impact", "Notes"],
                 label="Estimated ingredients",
                 interactive=False,
+                elem_classes=["quiet-table"],
             )
 
-    with gr.Accordion("Advanced: Raw structured response", open=False):
+    with gr.Accordion(
+        "Advanced: structured response",
+        open=False,
+        elem_classes=["advanced-panel"],
+    ):
         raw_json = gr.JSON(label="Raw JSON")
 
     analyze_button.click(

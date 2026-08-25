@@ -2,7 +2,7 @@
 
 CarbKind AI is a safety-gated multimodal food-photo assistant that helps users understand a meal's approximate nutrition, carb load, ingredients, and practical portion guidance through a simple consumer-friendly interface.
 
-CarbKind AI helps users turn a meal photo into a simple nutrition summary, carb estimate, ingredient list, and practical portion guidance.
+CarbKind AI pairs a dark, consumer-friendly food-photo interface with a simple nutrition summary, carb estimate, ingredient list, and practical portion guidance.
 
 ![CarbKind AI how it works](examples/screenshots/carbkind_how_it_works.svg)
 
