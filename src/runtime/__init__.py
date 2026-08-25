@@ -1,1 +1,1 @@
-"""Runtime orchestration for the NutriLens AI pipeline."""
+"""Runtime orchestration for the CarbKind AI pipeline."""

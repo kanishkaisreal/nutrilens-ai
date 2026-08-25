@@ -1,1 +1,1 @@
-"""Public evaluation utilities for NutriLens AI."""
+"""Public evaluation utilities for CarbKind AI."""

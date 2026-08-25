@@ -1,4 +1,4 @@
-"""Public-safe prompts for the live NutriLens agent pipeline."""
+"""Public-safe prompts for the live CarbKind agent pipeline."""
 
 
 GUARDRAIL_PROMPT = """

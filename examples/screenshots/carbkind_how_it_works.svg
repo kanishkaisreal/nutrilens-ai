@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title description">
-  <title id="title">NutriLens AI</title>
+  <title id="title">CarbKind AI</title>
   <desc id="description">Upload a meal photo, click Analyze, and see a meal summary, nutrition estimate, and ingredients.</desc>
   <defs>
     <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
@@ -15,8 +15,8 @@
   <circle cx="1120" cy="62" r="104" fill="#CDEEDC" opacity="0.65"/>
   <circle cx="78" cy="588" r="90" fill="#FFF0C2" opacity="0.72"/>
 
-  <text x="600" y="78" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700" fill="#16342B">NutriLens AI</text>
-  <text x="600" y="116" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="21" fill="#44635A">Upload a meal photo. Get instant nutrition insights.</text>
+  <text x="600" y="78" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700" fill="#16342B">CarbKind AI</text>
+  <text x="600" y="116" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="21" fill="#44635A">Snap a meal. Understand the carbs.</text>
 
   <g filter="url(#shadow)">
     <rect x="70" y="165" width="300" height="315" rx="24" fill="#FFFFFF"/>

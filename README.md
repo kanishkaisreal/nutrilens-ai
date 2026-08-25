@@ -1,14 +1,14 @@
-# NutriLens AI 🥗
+# CarbKind AI 🥗
 
-NutriLens AI is a safety-gated multimodal AI-agent system that analyzes meal images, estimates nutrition and ingredients, and returns structured, safety-reviewed meal guidance.
+CarbKind AI is a safety-gated multimodal food-photo assistant that helps users understand a meal's approximate nutrition, carb load, ingredients, and practical portion guidance through a simple consumer-friendly interface.
 
-NutriLens AI is designed to make meal analysis feel simple and consumer-friendly: upload a food photo, get a clear nutrition summary, carb estimate, and practical portion guidance.
+CarbKind AI helps users turn a meal photo into a simple nutrition summary, carb estimate, ingredient list, and practical portion guidance.
 
-![NutriLens AI how it works](examples/screenshots/nutrilens_how_it_works.svg)
+![CarbKind AI how it works](examples/screenshots/carbkind_how_it_works.svg)
 
 ## What it does
 
-NutriLens AI is being designed to turn a meal photo into an understandable estimate of its ingredients and nutritional content. Its output will be structured so it can be checked, displayed, and safely qualified before it reaches a user.
+CarbKind AI turns a meal photo into an understandable estimate of its ingredients and nutritional content. Its output is structured so it can be checked, displayed, and safely qualified before it reaches a user.
 
 ## Why this project exists
 

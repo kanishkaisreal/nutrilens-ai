@@ -1,1 +1,1 @@
-"""NutriLens AI application package."""
+"""CarbKind AI application package."""

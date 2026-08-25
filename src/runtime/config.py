@@ -1,4 +1,4 @@
-"""Runtime configuration for demo and live NutriLens modes."""
+"""Runtime configuration for demo and live CarbKind modes."""
 
 import os
 from dataclasses import dataclass

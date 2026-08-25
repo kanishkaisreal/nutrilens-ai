@@ -1,1 +1,1 @@
-"""Shared utilities for NutriLens AI."""
+"""Shared utilities for CarbKind AI."""

@@ -1,4 +1,4 @@
-"""Public response models for the NutriLens AI pipeline."""
+"""Public response models for the CarbKind AI pipeline."""
 
 from typing import Literal
 
@@ -69,8 +69,9 @@ class PipelineMetadata(BaseModel):
     prompt_versions: dict[str, str] = Field(default_factory=dict)
 
 
+# TODO: Rename this compatibility model in a future versioned schema change.
 class NutriLensResponse(BaseModel):
-    """Top-level response returned by NutriLens AI."""
+    """Top-level response returned by CarbKind AI."""
 
     status: PipelineStatus
     message: str

@@ -1,4 +1,4 @@
-"""Demo and live pipeline entry point for NutriLens AI."""
+"""Demo and live pipeline entry point for CarbKind AI."""
 
 import json
 from pathlib import Path

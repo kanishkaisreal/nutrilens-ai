@@ -1,4 +1,4 @@
-"""Run one public-safe live NutriLens pipeline smoke test."""
+"""Run one public-safe live CarbKind pipeline smoke test."""
 
 import os
 import sys

@@ -1,4 +1,4 @@
-"""Consumer-friendly Gradio demo for NutriLens AI."""
+"""Consumer-friendly Gradio demo for CarbKind AI."""
 
 from html import escape
 from pathlib import Path
@@ -427,12 +427,12 @@ def run_ui_analysis(image: Image.Image | None) -> UIOutput:
     return _format_ui_output(result)
 
 
-with gr.Blocks(title="NutriLens AI") as demo:
+with gr.Blocks(title="CarbKind AI") as demo:
     gr.HTML(
         """
         <section id="hero">
-          <h1>NutriLens AI 🥗</h1>
-          <p class="hero-subtitle">Snap a meal. Understand it instantly.</p>
+          <h1>CarbKind AI 🥗</h1>
+          <p class="hero-subtitle">Snap a meal. Understand the carbs.</p>
           <span class="hero-safety">Approximate nutrition estimate. Not medical advice.</span>
         </section>
         """

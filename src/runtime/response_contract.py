@@ -1,4 +1,4 @@
-"""Helpers for constructing consistent NutriLens AI responses."""
+"""Helpers for constructing consistent CarbKind AI responses."""
 
 from src.agents.schemas import (
     GuardrailResult,
