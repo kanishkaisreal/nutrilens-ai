@@ -9,6 +9,7 @@ from dotenv import load_dotenv
 DEFAULT_GUARDRAIL_MODEL = "gpt-5-mini"
 DEFAULT_MEAL_MODEL = "gpt-5-mini"
 DEFAULT_SAFETY_MODEL = "gpt-5-mini"
+DEFAULT_MODEL_PROVIDER = "demo"
 
 
 @dataclass(frozen=True)
@@ -20,6 +21,7 @@ class RuntimeConfig:
     guardrail_model: str
     meal_model: str
     safety_model: str
+    model_provider: str = DEFAULT_MODEL_PROVIDER
 
 
 def _read_demo_mode(value: str | None) -> bool:
@@ -36,8 +38,14 @@ def load_config() -> RuntimeConfig:
     if "DEMO_MODE" not in os.environ:
         load_dotenv()
     api_key = os.getenv("OPENAI_API_KEY", "").strip()
+    requested_demo_mode = _read_demo_mode(os.getenv("DEMO_MODE"))
+    model_provider = (
+        os.getenv("MODEL_PROVIDER", DEFAULT_MODEL_PROVIDER).strip().lower()
+    )
+    model_provider = model_provider or DEFAULT_MODEL_PROVIDER
     return RuntimeConfig(
-        demo_mode=_read_demo_mode(os.getenv("DEMO_MODE")),
+        demo_mode=requested_demo_mode or model_provider == "demo",
+        model_provider=model_provider,
         openai_api_key=api_key or None,
         guardrail_model=os.getenv(
             "OPENAI_GUARDRAIL_MODEL", DEFAULT_GUARDRAIL_MODEL

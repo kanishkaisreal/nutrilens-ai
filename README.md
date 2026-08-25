@@ -36,14 +36,28 @@ Live mode requires an `OPENAI_API_KEY` and runs three model-backed steps: image 
 
 1. Copy `.env.example` to `.env`.
 2. Set `DEMO_MODE=false`.
-3. Set `OPENAI_API_KEY` to your key.
-4. Run `python app.py`.
+3. Set `MODEL_PROVIDER=openai`.
+4. Set `OPENAI_API_KEY` to your key.
+5. Run `python app.py`.
 
 Keep `.env` local and never commit it. Model names can be changed independently with the model environment variables shown in `.env.example`.
 
 ## Architecture
 
 The system separates image intake, input guardrails, meal analysis, structured Pydantic validation, and output safety review into focused components. Runtime orchestration connects those components while keeping configuration and evaluation utilities isolated.
+
+## Model providers
+
+The analysis pipeline uses a small provider contract so model backends can change without changing the app response format.
+
+When `DEMO_MODE=true`, the demo provider is always used. When it is `false`, `MODEL_PROVIDER` selects the backend.
+
+Current providers:
+
+- `demo`: loads a fixed sample response and requires no API key.
+- `openai`: runs the live multimodal guardrail, meal-analysis, and safety-review flow and requires `OPENAI_API_KEY`.
+
+Planned providers include a Qwen or other open-source VLM experiment and a local or lightweight model option. These planned providers are not implemented yet.
 
 ## Quickstart
 
@@ -60,7 +74,8 @@ You can also start the demo with `gradio app.py` after installing the dependenci
 ## Environment variables
 
 - `DEMO_MODE`: Defaults to `true`; set to `false` to request live analysis.
-- `OPENAI_API_KEY`: Required only when live mode is enabled.
+- `MODEL_PROVIDER`: Defaults to `demo`; currently supports `demo` and `openai`.
+- `OPENAI_API_KEY`: Required when `DEMO_MODE=false` and `MODEL_PROVIDER=openai`.
 - `OPENAI_GUARDRAIL_MODEL`: Model used for the input guardrail.
 - `OPENAI_MEAL_MODEL`: Model used for meal analysis.
 - `OPENAI_SAFETY_MODEL`: Model used for output safety review.
@@ -73,7 +88,7 @@ Copy `.env.example` to `.env` for local configuration. Never commit API keys or 
 .
 ├── app.py                  # Runnable Gradio demo
 ├── src/
-│   ├── agents/             # Prompts, response schemas, and agent pipeline
+│   ├── agents/             # Providers, prompts, schemas, and agent pipeline
 │   ├── runtime/            # Response construction helpers
 │   ├── utils/              # Shared utilities
 │   └── evals/              # Public evaluation utilities

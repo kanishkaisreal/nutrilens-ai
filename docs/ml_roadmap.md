@@ -26,9 +26,9 @@ Structured schemas provide a stable contract between model output and the rest o
 
 As the system evolves, schema changes should remain versioned, validated, and separate from provider-specific response formats.
 
-## Provider abstraction roadmap
+## Provider abstraction
 
-A common provider interface would allow the same input, schema, safety checks, and evaluation suite to run against several backends:
+The pipeline now selects backends through a small provider contract while keeping schema validation and public response construction provider-neutral. This foundation allows the same input, safety contract, and future evaluation suite to run against several backends:
 
 - **Demo provider:** deterministic local response for interface testing.
 - **OpenAI provider:** the current live multimodal path.
