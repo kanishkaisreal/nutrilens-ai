@@ -73,6 +73,18 @@ The profile should preserve source links to the meals that informed it, distingu
 
 Only evaluate fine-tuning or lightweight adapters with explicit user consent and a small, curated dataset. Compare every approach against the retrieval baseline, measure whether it improves relevant estimates, and guard against overfitting to a limited set of meals.
 
+## Future product and ML modules
+
+- **Portion Uncertainty:** represent plausible ranges and the visual reasons an estimate may vary.
+- **Flavor Factorization Engine:** model taste profile, texture, cuisine pattern, ingredient roles, and cooking sequence.
+- **Recipe Creation Engine:** create practical meals from available ingredients, time, and functional substitutions.
+- **Personal Meal Memory:** maintain consented, editable food patterns with retention and deletion controls.
+- **Profile-aware Meal Composer:** use confirmed preferences and recurring meal patterns without making hidden assumptions.
+- **Mobile-first PWA:** optimize camera capture, ingredient entry, and result review for the mobile web.
+- **Shareable result cards:** create clear, privacy-aware visual summaries of plate checks and meal ideas.
+- **SEO and traffic pages:** publish useful food-decision content with calibrated claims and public-safe examples.
+- **Privacy-first analytics:** evaluate usefulness and drop-off with minimal, clearly disclosed data collection.
+
 ## Safety roadmap
 
 - Review consumer language for medical-safety boundaries.

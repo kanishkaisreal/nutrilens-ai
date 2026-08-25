@@ -1,82 +1,45 @@
-# CarbKind AI 🥗
+# CarbKind AI
 
-CarbKind AI is a safety-gated multimodal food-photo assistant that helps users understand a meal's approximate nutrition, carb load, ingredients, and practical portion guidance through a simple consumer-friendly interface.
+![CarbKind AI product poster](docs/assets/carbkind_project_poster.svg)
 
-CarbKind AI pairs a dark, consumer-friendly food-photo interface with a simple nutrition summary, carb estimate, ingredient list, and practical portion guidance.
+CarbKind AI is a mobile-first, carb-aware food decision assistant. It helps users understand what they are eating, identify the main carb source, and decide what to make next from ingredients they already have.
 
-![CarbKind AI how it works](examples/screenshots/carbkind_how_it_works.svg)
+**CarbKind does not try to measure food perfectly; it tries to help people make the next better food decision.**
 
-## What it does
+## What CarbKind answers
 
-CarbKind AI turns a meal photo into an understandable estimate of its ingredients and nutritional content. Its output is structured so it can be checked, displayed, and safely qualified before it reaches a user.
+- “I am eating this. What should I know?”
+- “I have these ingredients and 20 minutes. What should I make?”
+- “How can I make this meal more carb-aware without making it boring?”
 
-## Why this project exists
+## What it is not
 
-Nutrition information from an image is inherently uncertain. This project explores how multimodal AI, explicit safety checks, and clear uncertainty language can make image-based meal guidance more useful and responsible.
+- Not a medical device.
+- Not a replacement for a clinician or dietitian.
+- Not an exact calorie tracker.
+- Not dependent on hardware, food scales, or special sensors.
 
-## Try it quickly
+Nutrition and ingredient estimates are approximate and are not medical advice. CarbKind communicates uncertainty, avoids medication guidance, and treats useful ranges as more honest than fragile precision.
 
-The Gradio app accepts a meal image and displays a validated response with estimated ingredients, nutrition, uncertainty notes, and safety-reviewed guidance. It runs in deterministic demo mode by default, with an optional live model pipeline for local use.
+## Current experience
 
-Run the local Gradio demo:
+The Gradio app presents two focused workflows:
 
-```bash
-python app.py
-```
+- **Photo Analyzer:** turns a meal photo into a safety-reviewed summary with likely ingredients, a rough nutrition range, the main carb source, and practical portion context.
+- **Meal Composer:** turns available ingredients into a deterministic, carb-aware meal idea with functional substitutions. It makes no model call and stores no user data.
 
-Demo mode works without an API key. You can upload your own meal photo or click one of the public demo images in [`examples/sample_images/`](examples/sample_images/).
+The project currently includes:
 
-## Demo mode vs live mode
+- Photo Analyzer and Meal Composer
+- Deterministic demo provider
+- Live OpenAI provider
+- Optional Qwen provider scaffold
+- Public eval harness
+- Ingredient-role and functional-substitution foundation
 
-Demo mode is the default. It works without an API key, makes no model requests, and returns the included sample structured response.
+## Try it locally
 
-In demo mode, the uploaded image is not analyzed; the app returns a fixed sample response so the interface can be tested without an API key.
-
-Live mode requires an `OPENAI_API_KEY` and runs three model-backed steps: image guardrail, meal analysis, and output safety review. To enable it:
-
-1. Copy `.env.example` to `.env`.
-2. Set `DEMO_MODE=false`.
-3. Set `MODEL_PROVIDER=openai`.
-4. Set `OPENAI_API_KEY` to your key.
-5. Run `python app.py`.
-
-Keep `.env` local and never commit it. Model names can be changed independently with the model environment variables shown in `.env.example`.
-
-## Architecture
-
-The system separates image intake, input guardrails, meal analysis, structured Pydantic validation, and output safety review into focused components. Runtime orchestration connects those components while keeping configuration and evaluation utilities isolated.
-
-## Model providers
-
-The analysis pipeline uses a small provider contract so model backends can change without changing the app response format.
-
-When `DEMO_MODE=true`, the demo provider is always used. When it is `false`, `MODEL_PROVIDER` selects the backend.
-
-Current providers:
-
-- `demo`: loads a fixed sample response and requires no API key.
-- `openai`: runs the live multimodal guardrail, meal-analysis, and safety-review flow and requires `OPENAI_API_KEY`.
-- `qwen`: optional experimental scaffold for local Qwen VLM work; disabled by default and never downloads weights automatically.
-
-See the [Qwen provider guide](docs/qwen_provider.md) for the opt-in setup and current limits. Other local or lightweight providers remain future experiments.
-
-## Evaluation
-
-Run the public-safe demo evaluation:
-
-```bash
-python scripts/eval_provider.py
-```
-
-This checks structured output, safety wording, and carb-aware fields using the repository's public-safe sample images. It does not print raw responses or report benchmark scores.
-
-Live OpenAI evaluation requires explicit opt-in and a configured environment:
-
-```bash
-python scripts/eval_provider.py --provider openai --allow-live
-```
-
-## Quickstart
+CarbKind uses the existing conda environment `py312`:
 
 ```bash
 conda activate py312
@@ -85,68 +48,59 @@ cp .env.example .env
 python app.py
 ```
 
-You can also start the demo with `gradio app.py` after installing the dependencies.
+Demo mode is the default, needs no API key, and makes no model requests. You can upload a photo to preview the interface or use a public image from [`examples/sample_images/`](examples/sample_images/); demo output remains deterministic.
 
-## Environment variables
+## Providers
 
-- `DEMO_MODE`: Defaults to `true`; set to `false` to request live analysis.
-- `MODEL_PROVIDER`: Defaults to `demo`; supports `demo`, `openai`, and optional `qwen`.
-- `OPENAI_API_KEY`: Required when `DEMO_MODE=false` and `MODEL_PROVIDER=openai`.
-- `OPENAI_GUARDRAIL_MODEL`: Model used for the input guardrail.
-- `OPENAI_MEAL_MODEL`: Model used for meal analysis.
-- `OPENAI_SAFETY_MODEL`: Model used for output safety review.
-- `QWEN_MODEL_ID`: Optional local model identifier; defaults to `Qwen/Qwen2.5-VL-3B-Instruct`.
-- `QWEN_ALLOW_LOCAL_INFERENCE`: Defaults to `false`; the scaffold will not load or run a model.
-- `QWEN_DEVICE`: Optional device preference for future local inference; defaults to `auto`.
+The analysis pipeline uses a small provider contract while preserving one validated response format and safety boundary.
 
-Copy `.env.example` to `.env` for local configuration. Never commit API keys or other secrets.
+- `demo`: fixed public sample response with no API call.
+- `openai`: live multimodal guardrail, meal analysis, and safety review; requires explicit configuration.
+- `qwen`: optional experimental scaffold for future local VLM work; disabled by default and never downloads weights automatically.
 
-## Repository structure
+When `DEMO_MODE=true`, the demo provider is always used. With demo mode disabled, `MODEL_PROVIDER` selects `openai` or optional `qwen`. See [.env.example](.env.example) and the [Qwen provider guide](docs/qwen_provider.md) for configuration details.
 
-```text
-.
-├── app.py                  # Runnable Gradio demo
-├── src/
-│   ├── agents/             # Providers, prompts, schemas, and agent pipeline
-│   ├── runtime/            # Response construction helpers
-│   ├── utils/              # Shared utilities
-│   └── evals/              # Public evaluation utilities
-├── examples/               # Public demo response, images, and screenshots
-├── docs/                   # Extended project documentation
-└── notebooks/              # Public exploration notebooks
+## Public evaluation
+
+Run the public-safe demo evaluation:
+
+```bash
+python scripts/eval_provider.py
 ```
 
-## Safety note
-
-Nutrition estimates are approximate and are not medical advice. Outputs communicate uncertainty and pass through a dedicated safety-review step, but they should not replace guidance from a qualified healthcare professional.
-
-## Roadmap
-
-- Publish openly licensed sample images and example outputs.
-- Add evaluation coverage and deploy the Gradio demo.
-
-### Product and ML vision
-
-CarbKind AI is designed as more than a one-off meal analyzer. The longer-term direction is a personalized, carb-aware food assistant that can learn from user-owned meal photos, decompose meals into ingredients, suggest practical substitutions, and eventually compose healthier meals from what a user already has available.
-
-- [Product vision](docs/product_vision.md)
-- [ML roadmap](docs/ml_roadmap.md)
-- [Personalization and recipe factorization](docs/personalization_and_recipe_factorization.md)
-
-### Ingredient-factorization prototype
-
-The repository includes an early, deterministic ingredient-role and meal-composer prototype. It uses no model calls or stored user data:
+Run the rule-based Meal Composer example:
 
 ```bash
 python scripts/demo_meal_composer.py
 ```
 
-The Gradio app exposes both workflows:
+The eval harness checks response structure, safety wording, and carb-aware fields against public sample images. Live evaluation requires explicit opt-in and local configuration.
 
-- **Photo Analyzer:** upload a meal image for the existing analysis experience.
-- **Meal Composer:** enter available ingredients for a rule-based, carb-aware meal idea.
+## The longer-term loop
 
-See the [personalization implementation plan](docs/personalization_implementation_plan.md) for its current limits and staged development path.
+CarbKind is designed to connect three capabilities:
+
+1. **Photo Analyzer** understands what a person chooses to eat.
+2. **Personal Meal Memory** stores only consented, structured food patterns.
+3. **Meal Composer** uses current ingredients, available time, and a confirmed profile to suggest what to cook next.
+
+Over time, consented meal photos can help identify recurring foods, avoided ingredients, cuisine patterns, and common carb sources. The intended loop is:
+
+```text
+observe → learn → suggest → cook → observe again
+```
+
+Personalization remains user-controlled: inferred preferences should be confirmed before they become strict constraints, and meal history should support clear retention and deletion controls.
+
+## Project docs
+
+- [Product vision](docs/product_vision.md)
+- [Product principles](docs/product_principles.md)
+- [Product backlog](docs/product_backlog.md)
+- [ML roadmap](docs/ml_roadmap.md)
+- [Evaluation methodology](docs/eval_methodology.md)
+- [Personalization implementation plan](docs/personalization_implementation_plan.md)
+- [Qwen provider guide](docs/qwen_provider.md)
 
 ## License
 

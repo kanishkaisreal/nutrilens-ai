@@ -1,6 +1,6 @@
 # CarbKind AI Product Vision
 
-CarbKind AI turns a food photo into a simple, consumer-friendly nutrition and carb-awareness summary. The product starts with an intentionally small interaction—add a photo and receive a clear estimate—but is designed to grow into a personalized food assistant built around ingredients, portions, and practical choices.
+CarbKind AI is a carb-aware food decision assistant. It starts with an intentionally small interaction—add a photo or list available ingredients—but is designed to connect food understanding, practical meal composition, and consented personalization.
 
 ## Problem
 
@@ -27,6 +27,22 @@ The core experience should remain straightforward:
 6. Consider one practical portion suggestion.
 
 The interface should reduce the effort required to interpret a meal, while being honest about what cannot be known from an image alone.
+
+## The product system
+
+CarbKind connects three complementary capabilities:
+
+- **Photo Analyzer understands what users eat.** It identifies likely ingredients, the main carb source, rough nutrition ranges, and visible uncertainty.
+- **Meal Memory stores consented structured food patterns.** It can represent recurring foods, avoided ingredients, cuisine patterns, common carb sources, and confirmed preferences without silently turning observations into rules.
+- **Meal Composer helps users decide what to cook next.** It combines available ingredients, time, ingredient roles, and optional goals to suggest one practical meal and useful substitutions.
+
+Together they form a convergence loop:
+
+```text
+observe → learn → suggest → cook → observe again
+```
+
+A user can begin anywhere: check a plate, compose a meal, or revisit a confirmed pattern. Each useful interaction should reduce future effort while preserving consent, uncertainty, and user control.
 
 ## Design principle: consumer first
 

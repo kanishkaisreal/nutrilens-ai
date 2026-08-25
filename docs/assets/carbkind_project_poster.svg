@@ -1,0 +1,188 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1160" viewBox="0 0 1600 1160" role="img" aria-labelledby="title description">
+  <title id="title">CarbKind AI product poster</title>
+  <desc id="description">A visual overview of CarbKind AI as a carb-aware food decision assistant, from user inputs through food understanding and flavor factorization to practical outputs and a consented learning loop.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#050706"/>
+      <stop offset="0.55" stop-color="#07100c"/>
+      <stop offset="1" stop-color="#081018"/>
+    </linearGradient>
+    <linearGradient id="heroGlow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#30d158"/>
+      <stop offset="1" stop-color="#64d2ff"/>
+    </linearGradient>
+    <linearGradient id="centerCard" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#13251a"/>
+      <stop offset="1" stop-color="#101b22"/>
+    </linearGradient>
+    <radialGradient id="halo" cx="50%" cy="42%" r="55%">
+      <stop offset="0" stop-color="#30d158" stop-opacity="0.14"/>
+      <stop offset="1" stop-color="#30d158" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse">
+      <path d="M42 0H0V42" fill="none" stroke="#ffffff" stroke-opacity="0.025"/>
+    </pattern>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#000000" flood-opacity="0.36"/>
+    </filter>
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="10"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10Z" fill="#30d158"/>
+    </marker>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+      .eyebrow { fill: #30d158; font-size: 17px; font-weight: 750; letter-spacing: 3px; }
+      .section { fill: #f5f5f7; font-size: 24px; font-weight: 760; }
+      .card-title { fill: #f5f5f7; font-size: 22px; font-weight: 730; }
+      .body { fill: #b8bdc3; font-size: 17px; font-weight: 450; }
+      .small { fill: #9da3aa; font-size: 15px; }
+      .chip { fill: #d9fbe2; font-size: 15px; font-weight: 650; }
+      .step { fill: #f5f5f7; font-size: 18px; font-weight: 700; }
+      .icon { fill: none; stroke: #30d158; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="1160" rx="42" fill="url(#background)"/>
+  <rect width="1600" height="1160" rx="42" fill="url(#grid)"/>
+  <ellipse cx="800" cy="420" rx="590" ry="410" fill="url(#halo)"/>
+  <rect x="1" y="1" width="1598" height="1158" rx="41" fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-width="2"/>
+
+  <g text-anchor="middle">
+    <text x="800" y="76" class="eyebrow">FOOD DECISIONS, MADE CLEARER</text>
+    <text x="800" y="147" fill="#f5f5f7" font-size="64" font-weight="800" letter-spacing="-3">CarbKind AI</text>
+    <rect x="625" y="171" width="350" height="4" rx="2" fill="url(#heroGlow)"/>
+    <text x="800" y="214" fill="#f5f5f7" font-size="27" font-weight="690">Ask less. Infer more. Help the next food decision.</text>
+    <text x="800" y="250" class="body">A carb-aware food decision assistant that helps people decide what to eat, what to change, and what to cook next.</text>
+  </g>
+
+  <text x="60" y="305" class="eyebrow">01 · WHAT THE USER GIVES</text>
+  <text x="60" y="340" class="section">Simple signals, minimal friction</text>
+
+  <g filter="url(#shadow)">
+    <rect x="60" y="370" width="350" height="116" rx="24" fill="#121514" stroke="#ffffff" stroke-opacity="0.11"/>
+    <circle cx="108" cy="415" r="25" fill="#30d158" fill-opacity="0.10"/>
+    <rect x="94" y="406" width="28" height="19" rx="4" class="icon"/>
+    <circle cx="108" cy="415" r="5" class="icon"/>
+    <path d="M100 406l4-6h9l4 6" class="icon"/>
+    <text x="145" y="410" class="card-title">Meal Photo</text>
+    <text x="145" y="440" class="body">“What am I eating?”</text>
+
+    <rect x="60" y="503" width="350" height="130" rx="24" fill="#121514" stroke="#ffffff" stroke-opacity="0.11"/>
+    <circle cx="108" cy="551" r="25" fill="#30d158" fill-opacity="0.10"/>
+    <path d="M98 540h20M98 550h20M98 560h13" class="icon"/>
+    <text x="145" y="545" class="card-title">Ingredients + Time</text>
+    <text x="145" y="574" class="body">“I have these ingredients</text>
+    <text x="145" y="598" class="body">and 20 minutes.”</text>
+
+    <rect x="60" y="650" width="350" height="140" rx="24" fill="#121514" stroke="#ffffff" stroke-opacity="0.11"/>
+    <circle cx="108" cy="700" r="25" fill="#30d158" fill-opacity="0.10"/>
+    <circle cx="108" cy="700" r="14" class="icon"/>
+    <circle cx="108" cy="700" r="5" class="icon"/>
+    <path d="M108 680v6M108 714v6M88 700h6M122 700h6" class="icon"/>
+    <text x="145" y="690" class="card-title">Optional Goal</text>
+    <text x="145" y="719" class="body">Carb-aware, kid-friendly,</text>
+    <text x="145" y="743" class="body">high-protein, or balanced.</text>
+  </g>
+
+  <path d="M420 560H447" stroke="#30d158" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <text x="465" y="305" class="eyebrow">02 · WHAT CARBKIND UNDERSTANDS</text>
+  <text x="465" y="340" class="section">Structure beneath the meal</text>
+
+  <g filter="url(#shadow)">
+    <rect x="455" y="370" width="680" height="420" rx="32" fill="url(#centerCard)" stroke="#30d158" stroke-opacity="0.30"/>
+    <circle cx="795" cy="433" r="43" fill="#30d158" fill-opacity="0.12"/>
+    <circle cx="795" cy="433" r="28" fill="none" stroke="url(#heroGlow)" stroke-width="3"/>
+    <circle cx="795" cy="433" r="6" fill="#30d158"/>
+    <path d="M795 405v14M795 447v14M767 433h14M809 433h14M775 413l10 10M805 443l10 10M815 413l-10 10M785 443l-10 10" class="icon"/>
+    <text x="795" y="505" text-anchor="middle" fill="#f5f5f7" font-size="31" font-weight="780">Food Understanding</text>
+    <text x="795" y="542" text-anchor="middle" fill="url(#heroGlow)" font-size="25" font-weight="730">+ Flavor Factorization</text>
+
+    <g>
+      <rect x="500" y="580" width="132" height="42" rx="21" fill="#30d158" fill-opacity="0.10" stroke="#30d158" stroke-opacity="0.28"/>
+      <text x="566" y="606" text-anchor="middle" class="chip">ingredients</text>
+      <rect x="646" y="580" width="180" height="42" rx="21" fill="#30d158" fill-opacity="0.10" stroke="#30d158" stroke-opacity="0.28"/>
+      <text x="736" y="606" text-anchor="middle" class="chip">main carb source</text>
+      <rect x="840" y="580" width="240" height="42" rx="21" fill="#30d158" fill-opacity="0.10" stroke="#30d158" stroke-opacity="0.28"/>
+      <text x="960" y="606" text-anchor="middle" class="chip">portion uncertainty</text>
+
+      <rect x="500" y="636" width="150" height="42" rx="21" fill="#64d2ff" fill-opacity="0.10" stroke="#64d2ff" stroke-opacity="0.28"/>
+      <text x="575" y="662" text-anchor="middle" class="chip">taste profile</text>
+      <rect x="664" y="636" width="166" height="42" rx="21" fill="#64d2ff" fill-opacity="0.10" stroke="#64d2ff" stroke-opacity="0.28"/>
+      <text x="747" y="662" text-anchor="middle" class="chip">ingredient roles</text>
+      <rect x="844" y="636" width="172" height="42" rx="21" fill="#64d2ff" fill-opacity="0.10" stroke="#64d2ff" stroke-opacity="0.28"/>
+      <text x="930" y="662" text-anchor="middle" class="chip">cuisine pattern</text>
+
+      <rect x="571" y="692" width="180" height="42" rx="21" fill="#ffffff" fill-opacity="0.055" stroke="#ffffff" stroke-opacity="0.14"/>
+      <text x="661" y="718" text-anchor="middle" class="chip">cooking sequence</text>
+      <rect x="765" y="692" width="235" height="42" rx="21" fill="#ffffff" fill-opacity="0.055" stroke="#ffffff" stroke-opacity="0.14"/>
+      <text x="883" y="718" text-anchor="middle" class="chip">personal meal memory</text>
+    </g>
+    <text x="795" y="765" text-anchor="middle" class="small">Food is not just calories. It is ingredients, roles, flavor, timing, portion, and personal habit.</text>
+  </g>
+
+  <path d="M1145 560H1172" stroke="#30d158" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <text x="1190" y="305" class="eyebrow">03 · WHAT THE USER GETS</text>
+  <text x="1190" y="340" class="section">One useful next step</text>
+
+  <g filter="url(#shadow)">
+    <rect x="1185" y="370" width="355" height="96" rx="22" fill="#121514" stroke="#ffffff" stroke-opacity="0.11"/>
+    <circle cx="1227" cy="418" r="22" fill="#30d158" fill-opacity="0.10"/>
+    <path d="M1214 418h26M1227 405v26" class="icon"/>
+    <text x="1263" y="407" class="card-title">Plate Check</text>
+    <text x="1263" y="435" class="small">Main carb source + rough</text>
+    <text x="1263" y="456" class="small">nutrition range.</text>
+
+    <rect x="1185" y="480" width="355" height="96" rx="22" fill="#121514" stroke="#ffffff" stroke-opacity="0.11"/>
+    <circle cx="1227" cy="528" r="22" fill="#30d158" fill-opacity="0.10"/>
+    <path d="M1216 533l8-10 7 6 9-12" class="icon"/>
+    <text x="1263" y="517" class="card-title">One Better Swap</text>
+    <text x="1263" y="545" class="small">Preserve taste while</text>
+    <text x="1263" y="566" class="small">improving balance.</text>
+
+    <rect x="1185" y="590" width="355" height="96" rx="22" fill="#121514" stroke="#ffffff" stroke-opacity="0.11"/>
+    <circle cx="1227" cy="638" r="22" fill="#30d158" fill-opacity="0.10"/>
+    <path d="M1216 646c5-18 17-18 22-18-2 13-8 22-22 18zM1220 642l14-10" class="icon"/>
+    <text x="1263" y="627" class="card-title">Meal Suggestion</text>
+    <text x="1263" y="655" class="small">One practical recipe from</text>
+    <text x="1263" y="676" class="small">what you already have.</text>
+
+    <rect x="1185" y="700" width="355" height="90" rx="22" fill="#121514" stroke="#ffffff" stroke-opacity="0.11"/>
+    <circle cx="1227" cy="745" r="22" fill="#64d2ff" fill-opacity="0.10"/>
+    <path d="M1227 733v24M1215 745h24" fill="none" stroke="#64d2ff" stroke-width="2.5" stroke-linecap="round"/>
+    <text x="1263" y="734" class="card-title">Optional Add-on</text>
+    <text x="1263" y="762" class="small">One ingredient that would</text>
+    <text x="1263" y="783" class="small">make it better.</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="60" y="840" width="1480" height="190" rx="30" fill="#0f1412" stroke="#30d158" stroke-opacity="0.20"/>
+    <text x="800" y="884" text-anchor="middle" class="eyebrow">THE PERSONAL LEARNING LOOP</text>
+
+    <g>
+      <rect x="195" y="910" width="150" height="54" rx="27" fill="#30d158" fill-opacity="0.14" stroke="#30d158" stroke-opacity="0.34"/>
+      <text x="270" y="944" text-anchor="middle" class="step">Observe</text>
+      <path d="M358 937h74" stroke="#30d158" stroke-width="2.5" marker-end="url(#arrow)"/>
+      <rect x="445" y="910" width="150" height="54" rx="27" fill="#ffffff" fill-opacity="0.055" stroke="#ffffff" stroke-opacity="0.14"/>
+      <text x="520" y="944" text-anchor="middle" class="step">Learn</text>
+      <path d="M608 937h74" stroke="#30d158" stroke-width="2.5" marker-end="url(#arrow)"/>
+      <rect x="695" y="910" width="150" height="54" rx="27" fill="#ffffff" fill-opacity="0.055" stroke="#ffffff" stroke-opacity="0.14"/>
+      <text x="770" y="944" text-anchor="middle" class="step">Suggest</text>
+      <path d="M858 937h74" stroke="#30d158" stroke-width="2.5" marker-end="url(#arrow)"/>
+      <rect x="945" y="910" width="150" height="54" rx="27" fill="#ffffff" fill-opacity="0.055" stroke="#ffffff" stroke-opacity="0.14"/>
+      <text x="1020" y="944" text-anchor="middle" class="step">Cook</text>
+      <path d="M1108 937h74" stroke="#30d158" stroke-width="2.5" marker-end="url(#arrow)"/>
+      <rect x="1195" y="910" width="210" height="54" rx="27" fill="#30d158" fill-opacity="0.14" stroke="#30d158" stroke-opacity="0.34"/>
+      <text x="1300" y="944" text-anchor="middle" class="step">Observe again</text>
+    </g>
+    <text x="800" y="986" text-anchor="middle" class="small">Photos build consented meal memory. Meal memory makes future suggestions more personal.</text>
+    <path d="M1378 1000C1378 1024 222 1024 222 1000" fill="none" stroke="#30d158" stroke-opacity="0.45" stroke-width="2.5" marker-end="url(#arrow)"/>
+  </g>
+
+  <rect x="60" y="1056" width="1480" height="64" rx="20" fill="#f5f5f7" fill-opacity="0.055" stroke="#ffffff" stroke-opacity="0.12"/>
+  <text x="800" y="1094" text-anchor="middle" fill="#d9dde1" font-size="18" font-weight="650">No hardware  •  No fake precision  •  Minimal questions  •  Tasty, practical, carb-aware food</text>
+  <text x="800" y="1144" text-anchor="middle" fill="#30d158" font-size="17" font-weight="720" letter-spacing="1.4">A FOOD DECISION ASSISTANT — NOT JUST A CALORIE SCANNER</text>
+</svg>
