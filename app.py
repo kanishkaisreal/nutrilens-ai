@@ -20,6 +20,9 @@ NUTRITION_LABELS = {
     "sodium_mg": ("Sodium", "mg"),
 }
 
+SAMPLE_IMAGE_DIRECTORY = Path("examples") / "sample_images"
+SUPPORTED_IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp"}
+
 RECOMMENDATION_BADGES = {
     "green": "🟢 Green",
     "yellow": "🟡 Yellow",
@@ -37,6 +40,18 @@ UIOutput = tuple[
     list[list[str]],
     dict[str, Any],
 ]
+
+
+def find_sample_images(directory: Path = SAMPLE_IMAGE_DIRECTORY) -> list[str]:
+    """Return supported sample-image paths, or an empty list if none exist."""
+    if not directory.is_dir():
+        return []
+
+    return [
+        path.as_posix()
+        for path in sorted(directory.iterdir())
+        if path.is_file() and path.suffix.lower() in SUPPORTED_IMAGE_EXTENSIONS
+    ]
 
 
 def recommendation_badge(label: str | None) -> str:
@@ -202,6 +217,13 @@ with gr.Blocks(title="NutriLens AI") as demo:
         with gr.Column(scale=2, min_width=300):
             meal_image = gr.Image(type="pil", label="Meal image", height=360)
             analyze_button = gr.Button("Analyze Meal", variant="primary")
+            sample_images = find_sample_images()
+            if sample_images:
+                gr.Examples(
+                    examples=[[sample_image] for sample_image in sample_images],
+                    inputs=[meal_image],
+                    label="Try a sample meal",
+                )
             gr.Markdown("*Demo mode can run without an API key.*")
             gr.Markdown(
                 "Demo mode returns a sample structured meal analysis so the app can "

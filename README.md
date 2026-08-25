@@ -2,6 +2,8 @@
 
 NutriLens AI is a safety-gated multimodal AI-agent system that analyzes meal images, estimates nutrition and ingredients, and returns structured, safety-reviewed meal guidance.
 
+![NutriLens AI how it works](examples/screenshots/nutrilens_how_it_works.svg)
+
 ## What it does
 
 NutriLens AI is being designed to turn a meal photo into an understandable estimate of its ingredients and nutritional content. Its output will be structured so it can be checked, displayed, and safely qualified before it reaches a user.
@@ -10,7 +12,7 @@ NutriLens AI is being designed to turn a meal photo into an understandable estim
 
 Nutrition information from an image is inherently uncertain. This project explores how multimodal AI, explicit safety checks, and clear uncertainty language can make image-based meal guidance more useful and responsible.
 
-## Demo
+## Try it quickly
 
 The Gradio app accepts a meal image and displays a validated demo-mode response with estimated ingredients, nutrition, uncertainty notes, and safety-reviewed guidance. The current public version runs in demo mode and returns a sample structured meal analysis. Live model mode is planned next.
 
@@ -19,6 +21,10 @@ Run the local Gradio demo:
 ```bash
 python app.py
 ```
+
+Demo mode works without an API key. You can upload your own meal photo or click one of the public demo images in [`examples/sample_images/`](examples/sample_images/).
+
+Live Hugging Face Space coming soon.
 
 ## Planned architecture
 
