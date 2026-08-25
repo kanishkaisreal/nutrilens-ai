@@ -8,9 +8,17 @@ from src.runtime.config import RuntimeConfig
 
 OPTIONAL_MODULES = ("transformers", "accelerate", "PIL", "qwen_vl_utils")
 DISABLED_MESSAGE = (
-    "Qwen provider is configured but optional dependencies/model weights are not "
-    "installed. Install requirements-qwen.txt and run "
-    "scripts/qwen_provider_check.py with explicit local-run flags."
+    "Qwen provider is configured, but local inference is disabled. Set "
+    "QWEN_ALLOW_LOCAL_INFERENCE=true only after installing optional dependencies "
+    "and accepting the local model download/runtime requirements."
+)
+MISSING_DEPENDENCIES_MESSAGE = (
+    "Qwen optional dependencies are not installed. Install them with pip install "
+    "-r requirements-qwen.txt."
+)
+NOT_IMPLEMENTED_MESSAGE = (
+    "Qwen local inference scaffold is present, but full inference is not "
+    "implemented yet."
 )
 
 
@@ -35,14 +43,6 @@ class QwenProvider:
 
         missing_modules = self.missing_optional_modules()
         if missing_modules:
-            raise ProviderUnavailableError(
-                "Qwen local inference was explicitly enabled, but optional "
-                "dependencies are not installed: "
-                f"{', '.join(missing_modules)}. Install requirements-qwen.txt."
-            )
+            raise ProviderUnavailableError(MISSING_DEPENDENCIES_MESSAGE)
 
-        raise ProviderUnavailableError(
-            "Qwen optional dependencies are available, but this safe scaffold does "
-            "not load or download model weights. Prepare the model locally before "
-            "adding an explicit inference runner."
-        )
+        raise ProviderUnavailableError(NOT_IMPLEMENTED_MESSAGE)

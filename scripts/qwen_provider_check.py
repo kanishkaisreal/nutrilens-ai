@@ -53,7 +53,11 @@ def main() -> int:
         print("Local initialization skipped. Pass --allow-local-inference explicitly.")
         return 0
     if not all(module_status.values()):
-        print("Local initialization blocked because optional dependencies are missing.")
+        print(
+            "Qwen optional dependencies are not installed. Install them with "
+            "pip install -r requirements-qwen.txt."
+        )
+        print("Full Qwen inference is intentionally not implemented yet.")
         return 1
 
     if str(PROJECT_ROOT) not in sys.path:
@@ -71,7 +75,8 @@ def main() -> int:
         )
     )
     print(f"Provider initialized: {provider.name}")
-    print("Model loading and inference remain intentionally disabled in this scaffold.")
+    print("Full Qwen inference is intentionally not implemented yet.")
+    print("No model weights were downloaded and no inference was run.")
     return 0
 
 
