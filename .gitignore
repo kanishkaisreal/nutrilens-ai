@@ -1,0 +1,36 @@
+# secrets
+.env
+.env.local
+.env.*.local
+
+# python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+env/
+
+# local/editor
+.vscode/
+.idea/
+.DS_Store
+
+# private data / local artifacts
+OpenAI_ADE_assignment/
+OpenAI_ADE_assignment_submission/
+data/
+labels/
+private_data/
+private_labels/
+results/
+*.zip
+*.pdf
+
+# logs/cache
+*.log
+.cache/

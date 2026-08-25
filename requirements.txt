@@ -1,0 +1,6 @@
+gradio
+openai
+pydantic
+python-dotenv
+pillow
+pandas
