@@ -1,9 +1,9 @@
 """Helpers for constructing consistent CarbKind AI responses."""
 
 from src.agents.schemas import (
+    CarbKindResponse,
     GuardrailResult,
     MealAnalysisResult,
-    NutriLensResponse,
     PipelineMetadata,
     SafetyResult,
 )
@@ -19,9 +19,9 @@ def build_success_response(
     safety: SafetyResult,
     metadata: PipelineMetadata | None = None,
     message: str = "Meal analysis completed successfully.",
-) -> NutriLensResponse:
+) -> CarbKindResponse:
     """Build a successful live-pipeline response."""
-    return NutriLensResponse(
+    return CarbKindResponse(
         status="success",
         message=message,
         guardrail=guardrail,
@@ -36,9 +36,9 @@ def build_rejected_response(
     guardrail: GuardrailResult | None = None,
     safety: SafetyResult | None = None,
     metadata: PipelineMetadata | None = None,
-) -> NutriLensResponse:
+) -> CarbKindResponse:
     """Build a response for input or output rejected by a safety gate."""
-    return NutriLensResponse(
+    return CarbKindResponse(
         status="rejected",
         message=message,
         guardrail=guardrail,
@@ -50,9 +50,9 @@ def build_rejected_response(
 def build_failed_response(
     message: str,
     metadata: PipelineMetadata | None = None,
-) -> NutriLensResponse:
+) -> CarbKindResponse:
     """Build a response for an unrecoverable pipeline error."""
-    return NutriLensResponse(
+    return CarbKindResponse(
         status="failed",
         message=message,
         metadata=_metadata_or_default(metadata),
@@ -65,12 +65,12 @@ def build_demo_response(
     safety: SafetyResult,
     metadata: PipelineMetadata | None = None,
     message: str = "Demo meal analysis loaded.",
-) -> NutriLensResponse:
+) -> CarbKindResponse:
     """Build a deterministic demo response without a model call."""
     demo_metadata = _metadata_or_default(metadata).model_copy(
         update={"demo_mode": True}
     )
-    return NutriLensResponse(
+    return CarbKindResponse(
         status="demo",
         message=message,
         guardrail=guardrail,
@@ -80,7 +80,7 @@ def build_demo_response(
     )
 
 
-def response_to_dict(response: NutriLensResponse) -> dict:
+def response_to_dict(response: CarbKindResponse) -> dict:
     """Convert a response to a plain dictionary across Pydantic versions."""
     if hasattr(response, "model_dump"):
         return response.model_dump(mode="json")

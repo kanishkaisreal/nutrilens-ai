@@ -69,8 +69,7 @@ class PipelineMetadata(BaseModel):
     prompt_versions: dict[str, str] = Field(default_factory=dict)
 
 
-# TODO: Rename this compatibility model in a future versioned schema change.
-class NutriLensResponse(BaseModel):
+class CarbKindResponse(BaseModel):
     """Top-level response returned by CarbKind AI."""
 
     status: PipelineStatus
