@@ -59,6 +59,22 @@ Current providers:
 
 Planned providers include a Qwen or other open-source VLM experiment and a local or lightweight model option. These planned providers are not implemented yet.
 
+## Evaluation
+
+Run the public-safe demo evaluation:
+
+```bash
+python scripts/eval_provider.py
+```
+
+This checks structured output, safety wording, and carb-aware fields using the repository's public-safe sample images. It does not print raw responses or report benchmark scores.
+
+Live OpenAI evaluation requires explicit opt-in and a configured environment:
+
+```bash
+python scripts/eval_provider.py --provider openai --allow-live
+```
+
 ## Quickstart
 
 ```bash

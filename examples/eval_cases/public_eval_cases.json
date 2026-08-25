@@ -1,0 +1,26 @@
+[
+  {
+    "id": "berry_yogurt_bowl",
+    "image_path": "examples/sample_images/berry_yogurt_bowl.jpg",
+    "description": "Bowl with yogurt, blueberries, and red berries.",
+    "expected_visible_food": true,
+    "expected_carb_sources": ["berries", "yogurt"],
+    "notes": "Public-safe sample case for structure and carb-awareness checks."
+  },
+  {
+    "id": "rice_bowl",
+    "image_path": "examples/sample_images/rice_bowl.jpg",
+    "description": "Rice bowl with beans, tomatoes, herbs, and a creamy sauce.",
+    "expected_visible_food": true,
+    "expected_carb_sources": ["rice", "beans"],
+    "notes": "Public-safe sample case for mixed-meal structure checks."
+  },
+  {
+    "id": "vegetable_grain_bowl",
+    "image_path": "examples/sample_images/vegetable_grain_bowl.jpg",
+    "description": "Vegetable bowl with broccoli, cauliflower, leafy greens, and a grain-like base.",
+    "expected_visible_food": true,
+    "expected_carb_sources": ["grain", "couscous"],
+    "notes": "Public-safe sample case for ingredient and carb-source checks."
+  }
+]
