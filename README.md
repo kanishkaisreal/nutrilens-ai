@@ -91,6 +91,14 @@ Nutrition estimates are approximate and are not medical advice. Outputs communic
 - Publish openly licensed sample images and example outputs.
 - Add evaluation coverage and deploy the Gradio demo.
 
+### Product and ML vision
+
+CarbKind AI is designed as more than a one-off meal analyzer. The longer-term direction is a personalized, carb-aware food assistant that can learn from user-owned meal photos, decompose meals into ingredients, suggest practical substitutions, and eventually compose healthier meals from what a user already has available.
+
+- [Product vision](docs/product_vision.md)
+- [ML roadmap](docs/ml_roadmap.md)
+- [Personalization and recipe factorization](docs/personalization_and_recipe_factorization.md)
+
 ## License
 
 This project is available under the [MIT License](LICENSE).
