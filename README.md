@@ -78,8 +78,7 @@ python scripts/eval_provider.py --provider openai --allow-live
 ## Quickstart
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate
+conda activate py312
 pip install -r requirements.txt
 cp .env.example .env
 python app.py
